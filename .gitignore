@@ -1,6 +1,9 @@
 ## Ignore Visual Studio temporary files, build results, and
 ## NuGet packages. Customize this as needed.
 
+# Visual Studio IDE folder
+.vs/
+
 # Build results
 bin/
 obj/
