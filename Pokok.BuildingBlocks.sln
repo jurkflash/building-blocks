@@ -15,6 +15,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pokok.BuildingBlocks.MultiT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pokok.BuildingBlocks.Cqrs", "src\Pokok.BuildingBlocks.Cqrs\Pokok.BuildingBlocks.Cqrs.csproj", "{223666F2-AAE2-41C2-B28C-5A95FA69AA0D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{25A8C428-D371-4F5B-82FF-7EBC6A142DF2}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\nuget-publish.yml = .github\workflows\nuget-publish.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -95,6 +102,7 @@ Global
 		{134A444D-4CD6-4EBE-B9BF-A03147A4D779} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{4D407AAE-A084-4F60-BB6E-535B42586A41} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{223666F2-AAE2-41C2-B28C-5A95FA69AA0D} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
+		{25A8C428-D371-4F5B-82FF-7EBC6A142DF2} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {92D8DFE5-1E87-4954-A94F-4C07C8AD2996}

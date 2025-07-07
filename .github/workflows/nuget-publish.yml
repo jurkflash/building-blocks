@@ -1,0 +1,65 @@
+name: Pack & Publish BuildingBlocks to NuGet
+
+on:
+  push:
+    branches: [main]
+    tags:
+      - 'v*' # e.g., v1.0.0
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.x'
+
+    - name: Restore
+      run: dotnet restore src/Pokok.BuildingBlocks.sln
+
+    - name: Build
+      run: dotnet build src/Pokok.BuildingBlocks.sln --configuration Release --no-restore
+
+    - name: Extract version from tag
+      id: get_version
+      run: echo "TAG_VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
+
+    - name: Pack with tag version
+      run: |
+        for proj in $(find src -name '*.csproj'); do
+          dotnet pack "$proj" \
+            --configuration Release \
+            --no-build \
+            --output ./nupkgs \
+            /p:Version=${{ env.TAG_VERSION }}
+        done
+
+    - name: Push packages to NuGet
+      run: |
+        for pkg in ./nupkgs/*.nupkg; do
+          dotnet nuget push "$pkg" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+        done
+
+    - name: Generate Changelog
+      id: changelog
+      uses: mikepenz/release-changelog-builder-action@v4
+      with:
+        configuration: ""
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v2
+      with:
+        tag_name: ${{ github.ref_name }}
+        name: Release ${{ github.ref_name }}
+        body: ${{ steps.changelog.outputs.changelog }}
+        draft: false
+        prerelease: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
