@@ -25,9 +25,15 @@ jobs:
     - name: Build
       run: dotnet build Pokok.BuildingBlocks.sln --configuration Release --no-restore
 
-    - name: Extract version from tag
-      id: get_version
-      run: echo "TAG_VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
+    - name: Determine Package Version
+      id: version
+      run: |
+          if [[ "${GITHUB_REF}" == refs/tags/v* ]]; then
+            echo "PACKAGE_VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
+          else
+            DATE=$(date +%Y%m%d)
+            echo "PACKAGE_VERSION=0.1.0-main-${DATE}" >> $GITHUB_ENV
+          fi
 
     - name: Pack with tag version
       run: |
@@ -36,10 +42,11 @@ jobs:
             --configuration Release \
             --no-build \
             --output ./nupkgs \
-            /p:Version=${{ env.TAG_VERSION }}
+            /p:Version=${{ env.PACKAGE_VERSION }}
         done
 
     - name: Push packages to NuGet
+      if: startsWith(github.ref, 'refs/tags/v')  # Only publish release versions
       run: |
         for pkg in ./nupkgs/*.nupkg; do
           dotnet nuget push "$pkg" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
