@@ -1,4 +1,6 @@
-﻿namespace Pokok.BuildingBlocks.Domain.Events
+﻿using Pokok.BuildingBlocks.Domain.Abstractions;
+
+namespace Pokok.BuildingBlocks.Domain.Events
 {
     public abstract class DomainEventBase : IDomainEvent
     {

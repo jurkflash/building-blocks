@@ -1,6 +1,4 @@
-﻿using Pokok.BuildingBlocks.Domain.Events;
-
-namespace Pokok.BuildingBlocks.Domain.Abstractions
+﻿namespace Pokok.BuildingBlocks.Domain.Abstractions
 {
     public abstract class AggregateRoot<TId> : Entity<TId>
     {

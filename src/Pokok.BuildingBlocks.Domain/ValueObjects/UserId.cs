@@ -1,4 +1,6 @@
-﻿namespace Pokok.BuildingBlocks.Domain.ValueObjects
+﻿using Pokok.BuildingBlocks.Domain.Abstractions;
+
+namespace Pokok.BuildingBlocks.Domain.ValueObjects
 {
     public sealed class UserId : SingleValueObject<Guid>
     {

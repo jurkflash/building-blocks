@@ -1,4 +1,4 @@
-﻿namespace Pokok.BuildingBlocks.Domain.Events
+﻿namespace Pokok.BuildingBlocks.Domain.Abstractions
 {
     public interface IDomainEvent
     {

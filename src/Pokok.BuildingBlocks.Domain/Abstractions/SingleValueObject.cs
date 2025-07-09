@@ -1,4 +1,4 @@
-﻿namespace Pokok.BuildingBlocks.Domain.ValueObjects
+﻿namespace Pokok.BuildingBlocks.Domain.Abstractions
 {
     public abstract class SingleValueObject<T> : ValueObject
     {

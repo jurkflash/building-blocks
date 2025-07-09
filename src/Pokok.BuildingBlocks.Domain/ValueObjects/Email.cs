@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using Pokok.BuildingBlocks.Domain.Abstractions;
+using System.Text.RegularExpressions;
 
 namespace Pokok.BuildingBlocks.Domain.ValueObjects
 {

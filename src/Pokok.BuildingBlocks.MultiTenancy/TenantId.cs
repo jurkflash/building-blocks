@@ -1,4 +1,4 @@
-﻿using Pokok.BuildingBlocks.Domain.ValueObjects;
+﻿using Pokok.BuildingBlocks.Domain.Abstractions;
 
 namespace Pokok.BuildingBlocks.MultiTenancy
 {
