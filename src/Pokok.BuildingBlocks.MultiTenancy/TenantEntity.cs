@@ -1,6 +1,4 @@
-﻿using Pokok.BuildingBlocks.Domain.Entities;
-
-namespace Pokok.BuildingBlocks.MultiTenancy
+﻿namespace Pokok.BuildingBlocks.MultiTenancy
 {
     public abstract class TenantEntity : Entity, ITenantScoped
     {
