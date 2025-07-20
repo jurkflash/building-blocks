@@ -1,7 +1,7 @@
 ﻿using Pokok.BuildingBlocks.Domain.Abstractions;
 using System.Text.RegularExpressions;
 
-namespace Pokok.BuildingBlocks.Domain.ValueObjects
+namespace Pokok.BuildingBlocks.Domain.SharedKernel.ValueObjects
 {
     public sealed class PhoneNumber : SingleValueObject<string>
     {

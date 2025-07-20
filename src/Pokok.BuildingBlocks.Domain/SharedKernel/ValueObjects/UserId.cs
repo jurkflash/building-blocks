@@ -1,6 +1,6 @@
 ﻿using Pokok.BuildingBlocks.Domain.Abstractions;
 
-namespace Pokok.BuildingBlocks.Domain.ValueObjects
+namespace Pokok.BuildingBlocks.Domain.SharedKernel.ValueObjects
 {
     public sealed class UserId : SingleValueObject<Guid>
     {
