@@ -22,7 +22,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{
 		.github\workflows\nuget-publish.yml = .github\workflows\nuget-publish.yml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Outbox", "Outbox\Outbox.csproj", "{AB5FD3F7-6FA1-4033-AE73-D24F5DC10715}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pokok.BuildingBlocks.Outbox", "Outbox\Pokok.BuildingBlocks.Outbox.csproj", "{AB5FD3F7-6FA1-4033-AE73-D24F5DC10715}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
