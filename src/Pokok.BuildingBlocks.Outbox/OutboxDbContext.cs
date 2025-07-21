@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Pokok.BuildingBlocks.Domain.SharedKernel.Enums;
 
 namespace Pokok.BuildingBlocks.Outbox;
 
@@ -20,9 +19,10 @@ public class OutboxDbContext : DbContext
 
             builder.HasKey(x => x.Id);
 
-            builder.Property(x => x.Type)
-                   .HasConversion(v => v.Value, v => OutboxMessageType.From(v))
-                   .HasMaxLength(200);
+            builder.Property<string>("_typeValue")  // Backing field
+                   .HasColumnName("Type")
+                   .HasMaxLength(200)
+                   .IsRequired();
 
             builder.Property(x => x.Payload)
                    .IsRequired();

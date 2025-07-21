@@ -12,10 +12,18 @@ namespace Pokok.BuildingBlocks.Outbox
         public DateTime OccurredOnUtc { get; private set; } = DateTime.UtcNow;
 
         /// <summary>
+        /// Backing field for EF Core to store the string representation
+        /// </summary>
+        private string _typeValue = default!;
+
+        /// <summary>
         /// The type of the message (used by consumers to deserialize or dispatch)
         /// </summary>
-        public OutboxMessageType Type { get; private set; }
-
+        public OutboxMessageType Type
+        {
+            get => OutboxMessageType.From(_typeValue);
+            private set => _typeValue = value.Value;
+        }
         /// <summary>
         /// Serialized event or command payload (usually as JSON)
         /// </summary>
