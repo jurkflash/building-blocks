@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Pokok.BuildingBlocks.Domain.SharedKernel.Enums;
 
 namespace Pokok.BuildingBlocks.Outbox;
@@ -15,11 +14,6 @@ public class OutboxDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        var outboxTypeConverter = new ValueConverter<OutboxMessageType, string>(
-            v => v.Value,
-            v => OutboxMessageType.From(v)
-        );
-
         modelBuilder.Entity<OutboxMessage>(builder =>
         {
             builder.ToTable("OutboxMessages");
@@ -27,7 +21,7 @@ public class OutboxDbContext : DbContext
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Type)
-                   .HasConversion(outboxTypeConverter) 
+                   .HasConversion(t => t.Value, t => OutboxMessageType.From(t))
                    .HasMaxLength(200)
                    .IsRequired();
 
