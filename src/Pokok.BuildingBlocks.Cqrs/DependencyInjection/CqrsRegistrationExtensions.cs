@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Pokok.BuildingBlocks.Cqrs.Abstractions;
 using Pokok.BuildingBlocks.Cqrs.Dispatching;
+using Pokok.BuildingBlocks.Cqrs.Events;
 using Pokok.BuildingBlocks.Cqrs.Validation;
 
 namespace Pokok.BuildingBlocks.Cqrs.Extensions
@@ -62,6 +63,12 @@ namespace Pokok.BuildingBlocks.Cqrs.Extensions
                 return new ValidatingQueryHandler<TQuery, TResult>(handler, validators);
             });
 
+            return services;
+        }
+
+        public static IServiceCollection AddDomainEventDispatcher(this IServiceCollection services)
+        {
+            services.AddScoped<IDomainEventDispatcher, DomainEventDispatcher>();
             return services;
         }
     }
