@@ -22,10 +22,6 @@ namespace Pokok.BuildingBlocks.Domain.SharedKernel.Enums
 
         public override string ToString() => Value;
 
-        public static implicit operator string(OutboxMessageType type) => type.Value;
-
-        public static explicit operator OutboxMessageType(string value) => new(value);
-
         public static OutboxMessageType From(string value)
         {
             return new OutboxMessageType(value);
