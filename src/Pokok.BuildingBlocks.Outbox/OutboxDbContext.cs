@@ -7,7 +7,7 @@ public class OutboxDbContext : DbContext
 {
     public DbSet<OutboxMessage> OutboxMessages => Set<OutboxMessage>();
 
-    public OutboxDbContext(DbContextOptions<OutboxDbContext> options)
+    public OutboxDbContext(DbContextOptions options)
         : base(options)
     {
     }
