@@ -3,6 +3,6 @@
     public class EmailTemplatesOptions
     {
         public const string SectionName = "EmailTemplates";
-        public UserRegisteredConfirmationOptions UserRegisteredConfirmationOptions { get; set; }
+        public UserRegisteredConfirmationOptions UserRegisteredConfirmation { get; set; }
     }
 }
