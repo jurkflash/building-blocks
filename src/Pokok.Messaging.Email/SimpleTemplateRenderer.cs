@@ -15,7 +15,7 @@ namespace Pokok.Messaging.Email
         {
             var templateOptions = templateKey switch
             {
-                EmailTemplateKey.UserRegisteredConfirmation => _templates.UserRegisteredConfirmationOptions,
+                EmailTemplateKey.UserRegisteredConfirmation => _templates.UserRegisteredConfirmation,
                 _ => throw new ArgumentOutOfRangeException(nameof(templateKey), templateKey, null)
             };
 
