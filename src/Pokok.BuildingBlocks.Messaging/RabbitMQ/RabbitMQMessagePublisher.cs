@@ -10,6 +10,7 @@ namespace Pokok.BuildingBlocks.Messaging.RabbitMQ
         private readonly IRabbitMQConnection _connection;
         private readonly ILogger<RabbitMQMessagePublisher> _logger;
         private readonly string _exchangeName;
+        private IChannel? _channel;
 
         public RabbitMQMessagePublisher(
             IRabbitMQConnection connection,
@@ -25,10 +26,10 @@ namespace Pokok.BuildingBlocks.Messaging.RabbitMQ
         {
             try
             {
-                await using var channel = await _connection.CreateChannelAsync();
+                _channel = await _connection.CreateChannelAsync();
 
                 // Declare the exchange (optional if already declared externally)
-                await channel.ExchangeDeclareAsync(
+                await _channel.ExchangeDeclareAsync(
                     exchange: _exchangeName,
                     type: ExchangeType.Topic,
                     durable: true,
@@ -44,7 +45,7 @@ namespace Pokok.BuildingBlocks.Messaging.RabbitMQ
 
                 var routingKey = messageType.ToString(); // Or use a custom routing strategy
 
-                await channel.BasicPublishAsync(
+                await _channel.BasicPublishAsync(
                     exchange: _exchangeName,
                     routingKey: routingKey,
                     mandatory: true,
