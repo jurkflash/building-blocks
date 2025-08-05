@@ -22,30 +22,24 @@ namespace Pokok.BuildingBlocks.Cqrs.Events
 
             foreach (var domainEvent in domainEvents)
             {
-                var eventType = domainEvent.GetType();
-                _logger.LogDebug("CorrelationId: {CorrelationId} - Dispatching domain event: {EventType}", correlationId, eventType.Name);
+                _logger.LogInformation("Dispatching domain event: {EventType}", domainEvent.GetType().Name);
 
+                var eventType = domainEvent.GetType();
                 var handlerType = typeof(IDomainEventHandler<>).MakeGenericType(eventType);
                 var handlers = _serviceProvider.GetServices(handlerType);
-
-                if (!handlers.Cast<object>().Any())
-                {
-                    _logger.LogWarning("CorrelationId: {CorrelationId} - No handlers found for domain event: {EventType}", correlationId, eventType.Name);
-                    continue;
-                }
 
                 foreach (var handler in handlers)
                 {
                     var handleMethod = handlerType.GetMethod(nameof(IDomainEventHandler<IDomainEvent>.Handle));
                     if (handleMethod is null)
                     {
-                        _logger.LogWarning("CorrelationId: {CorrelationId} - Handle method not found for {HandlerType}", correlationId, handler.GetType().FullName);
+                        _logger.LogWarning("Handle method not found for {HandlerType}", handler.GetType().FullName);
                         continue;
                     }
 
                     try
                     {
-                        _logger.LogDebug("CorrelationId: {CorrelationId} - Invoking handler {HandlerType} for event {EventType}", correlationId, handler.GetType().FullName, eventType.Name);
+                        _logger.LogDebug("Invoking handler {HandlerType} for event {EventType}", handler.GetType().FullName, eventType.Name);
 
                         var task = (Task?)handleMethod.Invoke(handler, new object[] { domainEvent, cancellationToken });
                         if (task != null)
@@ -53,7 +47,7 @@ namespace Pokok.BuildingBlocks.Cqrs.Events
                     }
                     catch (Exception ex)
                     {
-                        _logger.LogError(ex, "CorrelationId: {CorrelationId} - Exception in handler {HandlerType} for domain event {EventType}", correlationId, handler.GetType().FullName, eventType.Name);
+                        _logger.LogError(ex, "Exception in handler {HandlerType} for domain event {EventType}", handler.GetType().FullName, eventType.Name);
                         throw;
                     }
                 }
