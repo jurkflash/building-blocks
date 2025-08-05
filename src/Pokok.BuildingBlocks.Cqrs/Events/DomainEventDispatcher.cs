@@ -18,8 +18,6 @@ namespace Pokok.BuildingBlocks.Cqrs.Events
 
         public async Task DispatchAsync(IEnumerable<IDomainEvent> domainEvents, CancellationToken cancellationToken = default)
         {
-            string correlationId = Activity.Current?.TraceId.ToString() ?? Guid.NewGuid().ToString();
-
             foreach (var domainEvent in domainEvents)
             {
                 _logger.LogInformation("Dispatching domain event: {EventType}", domainEvent.GetType().Name);

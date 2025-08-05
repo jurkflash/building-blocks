@@ -26,7 +26,6 @@ namespace Pokok.BuildingBlocks.Cqrs.Dispatching
         {
             var errors = new List<string>();
 
-            string correlationId = Activity.Current?.TraceId.ToString() ?? Guid.NewGuid().ToString();
             foreach (var validator in _validators)
             {
                 try
@@ -35,7 +34,7 @@ namespace Pokok.BuildingBlocks.Cqrs.Dispatching
                 }
                 catch (ValidationException ex)
                 {
-                    _logger.LogWarning("CorrelationId: {CorrelationId} - Validation failed for query {QueryType}: {Errors}", correlationId, typeof(TQuery).Name, string.Join("; ", ex.Errors));
+                    _logger.LogWarning("Validation failed for query {QueryType}: {Errors}", typeof(TQuery).Name, string.Join("; ", ex.Errors));
 
                     errors.AddRange(ex.Errors);
                 }
@@ -43,12 +42,12 @@ namespace Pokok.BuildingBlocks.Cqrs.Dispatching
 
             if (errors.Any())
             {
-                _logger.LogError("CorrelationId: {CorrelationId} - Query {QueryType} failed validation: {Errors}", correlationId, typeof(TQuery).Name, string.Join("; ", errors));
+                _logger.LogError("Query {QueryType} failed validation: {Errors}", typeof(TQuery).Name, string.Join("; ", errors));
 
                 throw new ValidationException(errors);
             }
 
-            _logger.LogDebug("CorrelationId: {CorrelationId} - Validation passed for query {QueryType}", correlationId, typeof(TQuery).Name);
+            _logger.LogDebug("Validation passed for query {QueryType}", typeof(TQuery).Name);
             return await _inner.HandleAsync(query, cancellationToken);
         }
     }
