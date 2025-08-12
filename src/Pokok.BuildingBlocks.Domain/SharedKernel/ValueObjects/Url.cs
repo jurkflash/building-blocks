@@ -1,4 +1,5 @@
 ﻿using Pokok.BuildingBlocks.Domain.Abstractions;
+using Pokok.BuildingBlocks.Domain.Exceptions;
 
 namespace Pokok.BuildingBlocks.Domain.SharedKernel.ValueObjects
 {
@@ -6,8 +7,13 @@ namespace Pokok.BuildingBlocks.Domain.SharedKernel.ValueObjects
     {
         public Url(string value) : base(value)
         {
-            if (!Uri.IsWellFormedUriString(value, UriKind.Absolute))
-                throw new ArgumentException("Invalid URL format.", nameof(value));
+            Validate();
+        }
+
+        protected override void Validate()
+        {
+            if (!Uri.IsWellFormedUriString(Value, UriKind.Absolute))
+                throw new DomainException("Invalid URL format.");
         }
     }
 }

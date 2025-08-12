@@ -1,4 +1,5 @@
 ﻿using Pokok.BuildingBlocks.Domain.Abstractions;
+using Pokok.BuildingBlocks.Domain.Exceptions;
 
 namespace Pokok.BuildingBlocks.Domain.SharedKernel.ValueObjects
 {
@@ -6,8 +7,12 @@ namespace Pokok.BuildingBlocks.Domain.SharedKernel.ValueObjects
     {
         public DisplayName(string value) : base(value)
         {
-            if (string.IsNullOrWhiteSpace(value))
-                throw new ArgumentException("DisplayName cannot be empty.", nameof(value));
+        }
+
+        protected override void Validate()
+        {
+            if (string.IsNullOrWhiteSpace(Value))
+                throw new DomainException("Display name cannot be empty.");
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Pokok.BuildingBlocks.Domain.Abstractions;
+using Pokok.BuildingBlocks.Domain.Exceptions;
 
 namespace Pokok.BuildingBlocks.Domain.SharedKernel.ValueObjects
 {
@@ -9,8 +10,8 @@ namespace Pokok.BuildingBlocks.Domain.SharedKernel.ValueObjects
 
         public Money(decimal amount, string currency)
         {
-            if (amount < 0) throw new ArgumentException("Amount cannot be negative.");
-            if (string.IsNullOrWhiteSpace(currency)) throw new ArgumentException("Currency is required.");
+            if (amount < 0) throw new DomainException("Amount cannot be negative.");
+            if (string.IsNullOrWhiteSpace(currency)) throw new DomainException("Currency is required.");
 
             Amount = amount;
             Currency = currency.ToUpperInvariant();
@@ -24,7 +25,7 @@ namespace Pokok.BuildingBlocks.Domain.SharedKernel.ValueObjects
 
         public Money Add(Money other)
         {
-            if (Currency != other.Currency) throw new InvalidOperationException("Currency mismatch.");
+            if (Currency != other.Currency) throw new DomainException("Currency mismatch.");
             return new Money(Amount + other.Amount, Currency);
         }
     }
