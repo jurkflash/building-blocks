@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Pokok.BuildingBlocks.Common\Pokok.BuildingBlocks.Common.csproj" />
+    <ProjectReference Include="..\Pokok.BuildingBlocks.Cqrs\Pokok.BuildingBlocks.Cqrs.csproj" />
   </ItemGroup>
 
 </Project>
