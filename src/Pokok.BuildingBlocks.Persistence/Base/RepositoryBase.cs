@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 
 namespace Pokok.BuildingBlocks.Persistence.Base
 {
-    public abstract class RepositoryBase<TEntity> : IRepository<TEntity> where TEntity : class
+    public abstract class RepositoryBase<T> : IRepository<T> where T : class
     {
         protected readonly DbContext Context;
 
@@ -13,54 +13,54 @@ namespace Pokok.BuildingBlocks.Persistence.Base
             Context = context;
         }
 
-        public virtual async Task<TEntity?> GetAsync(Guid id, CancellationToken cancellationToken = default)
+        public virtual async Task<T?> GetAsync(Guid id, CancellationToken cancellationToken = default)
         {
-            return await Context.Set<TEntity>().FindAsync(id, cancellationToken);
+            return await Context.Set<T>().FindAsync(id, cancellationToken);
         }
 
-        public virtual async Task<IEnumerable<TEntity>> GetAllAsync(CancellationToken cancellationToken = default)
+        public virtual async Task<IEnumerable<T>> GetAllAsync(CancellationToken cancellationToken = default)
         {
-            return await Context.Set<TEntity>().ToListAsync(cancellationToken);
+            return await Context.Set<T>().ToListAsync(cancellationToken);
         }
 
-        public virtual async Task<IEnumerable<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default)
+        public virtual async Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken = default)
         {
-            return await Context.Set<TEntity>().Where(predicate).ToListAsync(cancellationToken);
+            return await Context.Set<T>().Where(predicate).ToListAsync(cancellationToken);
         }
 
-        public virtual async Task<TEntity?> SingleOrDefaultAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default)
+        public virtual async Task<T?> SingleOrDefaultAsync(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken = default)
         {
-            return await Context.Set<TEntity>().SingleOrDefaultAsync(predicate, cancellationToken);
+            return await Context.Set<T>().SingleOrDefaultAsync(predicate, cancellationToken);
         }
 
-        public virtual async Task AddAsync(TEntity entity, CancellationToken cancellationToken = default)
+        public virtual async Task AddAsync(T entity, CancellationToken cancellationToken = default)
         {
-            await Context.Set<TEntity>().AddAsync(entity, cancellationToken);
+            await Context.Set<T>().AddAsync(entity, cancellationToken);
         }
 
-        public virtual async Task AddRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default)
+        public virtual async Task AddRangeAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default)
         {
-            await Context.Set<TEntity>().AddRangeAsync(entities, cancellationToken);
+            await Context.Set<T>().AddRangeAsync(entities, cancellationToken);
         }
 
-        public virtual void Remove(TEntity entity)
+        public virtual void Remove(T entity)
         {
-            Context.Set<TEntity>().Remove(entity);
+            Context.Set<T>().Remove(entity);
         }
 
-        public virtual void RemoveRange(IEnumerable<TEntity> entities)
+        public virtual void RemoveRange(IEnumerable<T> entities)
         {
-            Context.Set<TEntity>().RemoveRange(entities);
+            Context.Set<T>().RemoveRange(entities);
         }
 
-        public virtual async Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken)
+        public virtual async Task<bool> ExistsAsync(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken)
         {
-            return await Context.Set<TEntity>().AnyAsync(predicate, cancellationToken);
+            return await Context.Set<T>().AnyAsync(predicate, cancellationToken);
         }
 
-        public virtual async Task<int> CountAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken)
+        public virtual async Task<int> CountAsync(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken)
         {
-            return await Context.Set<TEntity>().CountAsync(predicate, cancellationToken);
+            return await Context.Set<T>().CountAsync(predicate, cancellationToken);
 
         }
     }

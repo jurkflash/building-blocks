@@ -1,4 +1,5 @@
 ﻿using Pokok.BuildingBlocks.Domain.Abstractions;
+using Pokok.BuildingBlocks.Domain.Exceptions;
 
 namespace Pokok.BuildingBlocks.Domain.SharedKernel.Enums
 {
@@ -8,7 +9,10 @@ namespace Pokok.BuildingBlocks.Domain.SharedKernel.Enums
 
         private OutboxMessageType(string value)
         {
-            Value = value ?? throw new ArgumentNullException(nameof(value));
+            if (string.IsNullOrWhiteSpace(value))
+                throw new DomainException($"{nameof(OutboxMessageType)} cannot be null or empty.");
+
+            Value = value;
         }
 
         public static OutboxMessageType Email => new("Email");
@@ -22,9 +26,6 @@ namespace Pokok.BuildingBlocks.Domain.SharedKernel.Enums
 
         public override string ToString() => Value;
 
-        public static OutboxMessageType From(string value)
-        {
-            return new OutboxMessageType(value);
-        }
+        public static OutboxMessageType From(string value) => new(value);
     }
 }

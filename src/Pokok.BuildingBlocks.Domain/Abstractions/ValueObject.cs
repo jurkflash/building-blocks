@@ -4,6 +4,10 @@
     {
         protected abstract IEnumerable<object?> GetEqualityComponents();
 
+        protected virtual void Validate()
+        {
+        }
+
         public override bool Equals(object? obj)
         {
             return Equals(obj as ValueObject);
