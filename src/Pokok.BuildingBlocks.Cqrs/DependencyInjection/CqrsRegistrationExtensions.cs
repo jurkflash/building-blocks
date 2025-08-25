@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Pokok.BuildingBlocks.Cqrs.Abstractions;
 using Pokok.BuildingBlocks.Cqrs.Dispatching;
+using Pokok.BuildingBlocks.Cqrs.Events;
 using Pokok.BuildingBlocks.Cqrs.Validation;
 
 namespace Pokok.BuildingBlocks.Cqrs.Extensions
@@ -21,7 +23,9 @@ namespace Pokok.BuildingBlocks.Cqrs.Extensions
             {
                 var handler = provider.GetRequiredService<THandler>();
                 var validators = provider.GetServices<IValidator<TCommand>>();
-                return new ValidatingCommandHandler<TCommand, TResult>(handler, validators);
+                var logger = provider.GetRequiredService<ILogger<ValidatingCommandHandler<TCommand, TResult>>>();
+
+                return new ValidatingCommandHandler<TCommand, TResult>(handler, validators, logger);
             });
 
             return services;
@@ -59,9 +63,17 @@ namespace Pokok.BuildingBlocks.Cqrs.Extensions
             {
                 var handler = provider.GetRequiredService<THandler>();
                 var validators = provider.GetServices<IValidator<TQuery>>();
-                return new ValidatingQueryHandler<TQuery, TResult>(handler, validators);
+                var logger = provider.GetRequiredService<ILogger<ValidatingQueryHandler<TQuery, TResult>>>();
+
+                return new ValidatingQueryHandler<TQuery, TResult>(handler, validators, logger);
             });
 
+            return services;
+        }
+
+        public static IServiceCollection AddDomainEventDispatcher(this IServiceCollection services)
+        {
+            services.AddScoped<IDomainEventDispatcher, DomainEventDispatcher>();
             return services;
         }
     }

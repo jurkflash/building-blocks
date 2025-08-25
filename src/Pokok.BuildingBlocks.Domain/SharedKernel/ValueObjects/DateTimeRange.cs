@@ -1,4 +1,5 @@
 ﻿using Pokok.BuildingBlocks.Domain.Abstractions;
+using Pokok.BuildingBlocks.Domain.Exceptions;
 
 namespace Pokok.BuildingBlocks.Domain.SharedKernel.ValueObjects
 {
@@ -9,11 +10,16 @@ namespace Pokok.BuildingBlocks.Domain.SharedKernel.ValueObjects
 
         public DateTimeRange(DateTimeOffset start, DateTimeOffset end)
         {
-            if (end < start)
-                throw new ArgumentException("End must be greater than or equal to start.");
-
             Start = start;
             End = end;
+
+            Validate();
+        }
+
+        protected override void Validate()
+        {
+            if (End < Start)
+                throw new DomainException("End must be greater than or equal to start.");
         }
 
         public bool Contains(DateTimeOffset value) => value >= Start && value <= End;

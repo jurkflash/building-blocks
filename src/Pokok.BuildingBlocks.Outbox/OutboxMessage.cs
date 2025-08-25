@@ -9,7 +9,7 @@ namespace Pokok.BuildingBlocks.Outbox
         /// <summary>
         /// When the event was originally raised by the domain
         /// </summary>
-        public DateTime OccurredOnUtc { get; private set; } = DateTime.UtcNow;
+        public DateTime OccurredOnUtc { get; private set; }
 
         /// <summary>
         /// The type of the message (used by consumers to deserialize or dispatch)
@@ -41,11 +41,13 @@ namespace Pokok.BuildingBlocks.Outbox
         public OutboxMessage(
             OutboxMessageType type,
             string payload,
-            string sourceApp)
+            string sourceApp,
+            DateTime? occurredOnUtc = null)
         {
             Type = type ?? throw new ArgumentNullException(nameof(type));
             Payload = payload ?? throw new ArgumentNullException(nameof(payload));
             SourceApp = sourceApp ?? throw new ArgumentNullException(nameof(sourceApp));
+            OccurredOnUtc = occurredOnUtc ?? DateTime.UtcNow;
         }
 
         public void MarkAsProcessed()

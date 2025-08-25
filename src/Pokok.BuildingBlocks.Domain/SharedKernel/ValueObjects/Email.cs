@@ -1,4 +1,5 @@
 ﻿using Pokok.BuildingBlocks.Domain.Abstractions;
+using Pokok.BuildingBlocks.Domain.Exceptions;
 using System.Text.RegularExpressions;
 
 namespace Pokok.BuildingBlocks.Domain.SharedKernel.ValueObjects
@@ -6,12 +7,16 @@ namespace Pokok.BuildingBlocks.Domain.SharedKernel.ValueObjects
     public sealed class Email : SingleValueObject<string>
     {
         private static readonly Regex EmailRegex =
-            new(@"^[^@\s]+@[^@\s]+\.[^@\s]+$", RegexOptions.Compiled);
+        new(@"^[^@\s]+@[^@\s]+\.[^@\s]+$", RegexOptions.Compiled);
 
         public Email(string value) : base(value)
         {
-            if (!EmailRegex.IsMatch(value))
-                throw new ArgumentException("Invalid email format.", nameof(value));
+        }
+
+        protected override void Validate()
+        {
+            if (!EmailRegex.IsMatch(Value))
+                throw new DomainException("Invalid email format.");
         }
     }
 }

@@ -3,17 +3,16 @@ using Pokok.BuildingBlocks.Domain.Exceptions;
 
 namespace Pokok.BuildingBlocks.Domain.SharedKernel.ValueObjects
 {
-    public sealed class Url : SingleValueObject<string>
+    public sealed class DisplayName : SingleValueObject<string>
     {
-        public Url(string value) : base(value)
+        public DisplayName(string value) : base(value)
         {
-            Validate();
         }
 
         protected override void Validate()
         {
-            if (!Uri.IsWellFormedUriString(Value, UriKind.Absolute))
-                throw new DomainException("Invalid URL format.");
+            if (string.IsNullOrWhiteSpace(Value))
+                throw new DomainException("Display name cannot be empty.");
         }
     }
 }

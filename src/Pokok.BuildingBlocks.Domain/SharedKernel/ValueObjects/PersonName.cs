@@ -1,4 +1,5 @@
 ﻿using Pokok.BuildingBlocks.Domain.Abstractions;
+using Pokok.BuildingBlocks.Domain.Exceptions;
 
 namespace Pokok.BuildingBlocks.Domain.SharedKernel.ValueObjects
 {
@@ -9,11 +10,18 @@ namespace Pokok.BuildingBlocks.Domain.SharedKernel.ValueObjects
 
         public PersonName(string firstName, string lastName)
         {
-            if (string.IsNullOrWhiteSpace(firstName)) throw new ArgumentException("First name is required.");
-            if (string.IsNullOrWhiteSpace(lastName)) throw new ArgumentException("Last name is required.");
-
             FirstName = firstName;
             LastName = lastName;
+
+            Validate();
+        }
+
+        protected override void Validate()
+        {
+            if (string.IsNullOrWhiteSpace(FirstName))
+                throw new DomainException("First name is required.");
+            if (string.IsNullOrWhiteSpace(LastName))
+                throw new DomainException("Last name is required.");
         }
 
         public string FullName => $"{FirstName} {LastName}";
