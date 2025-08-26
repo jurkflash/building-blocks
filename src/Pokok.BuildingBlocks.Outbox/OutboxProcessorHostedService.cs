@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Pokok.BuildingBlocks.Messaging.Abstractions;
 
 namespace Pokok.BuildingBlocks.Outbox
 {
@@ -33,7 +34,7 @@ namespace Pokok.BuildingBlocks.Outbox
                     using var scope = _serviceProvider.CreateScope();
                     var dbContext = scope.ServiceProvider.GetRequiredService<TDbContext>();
                     var outbox = dbContext.Set<OutboxMessage>();
-                    var publisher = scope.ServiceProvider.GetRequiredService<IOutboxMessagePublisher>();
+                    var publisher = scope.ServiceProvider.GetRequiredService<IMessagePublisher>();
 
                     var messages = await outbox
                         .Where(m => m.ProcessedOnUtc == null)
