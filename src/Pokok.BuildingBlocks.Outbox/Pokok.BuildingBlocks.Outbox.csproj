@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Pokok.BuildingBlocks.Domain\Pokok.BuildingBlocks.Domain.csproj" />
+    <ProjectReference Include="..\Pokok.BuildingBlocks.Messaging\Pokok.BuildingBlocks.Messaging.csproj" />
   </ItemGroup>
 
 </Project>
