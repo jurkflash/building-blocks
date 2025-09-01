@@ -1,3 +1,7 @@
+# NuGet Publish Workflow
+# This workflow will build and publish NuGet packages on release
+# See README.md for details
+
 name: Pack & Publish BuildingBlocks to NuGet
 
 on:

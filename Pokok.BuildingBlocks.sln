@@ -16,6 +16,11 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pokok.BuildingBlocks.Cqrs", "src\Pokok.BuildingBlocks.Cqrs\Pokok.BuildingBlocks.Cqrs.csproj", "{223666F2-AAE2-41C2-B28C-5A95FA69AA0D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+	ProjectSection(SolutionItems) = preProject
+		.github\CODE_OF_CONDUCT.md = .github\CODE_OF_CONDUCT.md
+		.github\CONTRIBUTING.md = .github\CONTRIBUTING.md
+		.github\SECURITY.md = .github\SECURITY.md
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{25A8C428-D371-4F5B-82FF-7EBC6A142DF2}"
 	ProjectSection(SolutionItems) = preProject
@@ -27,6 +32,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pokok.Messaging.Email", "src\Pokok.Messaging.Email\Pokok.Messaging.Email.csproj", "{4CD53201-EB53-4D17-B25F-DB88FCB8BDE0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pokok.BuildingBlocks.Messaging", "src\Pokok.BuildingBlocks.Messaging\Pokok.BuildingBlocks.Messaging.csproj", "{2A5D19ED-A1B1-4731-AF99-61456513E7C6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E51FD9A6-2230-4831-A61E-13DDE61CA144}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -144,6 +155,7 @@ Global
 		{134A444D-4CD6-4EBE-B9BF-A03147A4D779} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{4D407AAE-A084-4F60-BB6E-535B42586A41} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{223666F2-AAE2-41C2-B28C-5A95FA69AA0D} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
+		{02EA681E-C7D8-13C7-8484-4AC65E1B71E8} = {E51FD9A6-2230-4831-A61E-13DDE61CA144}
 		{25A8C428-D371-4F5B-82FF-7EBC6A142DF2} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{C745EF46-0B94-9C5B-0ECF-0D66E7B150FF} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{4CD53201-EB53-4D17-B25F-DB88FCB8BDE0} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}

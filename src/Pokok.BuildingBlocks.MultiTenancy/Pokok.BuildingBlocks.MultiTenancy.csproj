@@ -6,12 +6,12 @@
     <Nullable>enable</Nullable>
 	<TargetFramework>net8.0</TargetFramework>
 	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-	<PackageId>Pokok.BuildingBlocks.MultiTenancy</PackageId>
-	<Version>1.0.0</Version>
-	<Authors>Wayne</Authors>
-	<Company>Pokok Daun</Company>
-	<Description>Shared abstractions and utilities for multi-tenant applications using domain-driven design.</Description>
-	<PackageTags>MultiTenancy;DDD;Tenant;BuildingBlocks</PackageTags>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Description>Shared abstractions and utilities for multi-tenant applications using domain-driven design.</Description>
+    <PackageTags>MultiTenancy;DDD;Tenant;BuildingBlocks</PackageTags>
+    <PackageId>Pokok.BuildingBlocks.MultiTenancy</PackageId>
   </PropertyGroup>
 
   <ItemGroup>
