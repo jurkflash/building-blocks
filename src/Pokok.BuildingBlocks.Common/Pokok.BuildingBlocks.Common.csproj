@@ -9,8 +9,11 @@
 	<Version>1.0.0</Version>
 	<Authors>Wayne</Authors>
 	<Company>Pokok Daun</Company>
-	<Description>Common utility classes, extensions, and primitives shared across Pokok microservices and applications.</Description>
-	<PackageTags>Common;Utilities;Helpers;Shared;BuildingBlocks</PackageTags>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Description>Common utility classes, extensions, and primitives shared across Pokok microservices and applications.</Description>
+    <PackageTags>Common;Utilities;Helpers;Shared;BuildingBlocks</PackageTags>
   </PropertyGroup>
 
 </Project>

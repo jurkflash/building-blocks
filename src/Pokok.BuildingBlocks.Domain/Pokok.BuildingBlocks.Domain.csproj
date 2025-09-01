@@ -9,8 +9,11 @@
 	<Version>1.0.0</Version>
 	<Authors>Wayne</Authors>
 	<Company>Pokok Daun</Company>
-	<Description>Building blocks for domain-driven design in Pokok Platform</Description>
-	<PackageTags>DDD;Specification;AggregateRoot;BuildingBlocks</PackageTags>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Description>Building blocks for domain-driven design in Pokok Platform</Description>
+    <PackageTags>DDD;Specification;AggregateRoot;BuildingBlocks</PackageTags>
   </PropertyGroup>
 
 </Project>
