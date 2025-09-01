@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Pokok.BuildingBlocks.Messaging.Abstractions;
 
 namespace Pokok.BuildingBlocks.Outbox
@@ -9,18 +10,18 @@ namespace Pokok.BuildingBlocks.Outbox
     public class OutboxProcessorHostedService<TDbContext> : BackgroundService
         where TDbContext : DbContext
     {
+        private readonly IOptions<OutboxOptions> _options;
         private readonly IServiceProvider _serviceProvider;
         private readonly ILogger<OutboxProcessorHostedService<TDbContext>> _logger;
-        private readonly TimeSpan _interval;
 
         public OutboxProcessorHostedService(
+            IOptions<OutboxOptions> options,
             IServiceProvider serviceProvider,
-            ILogger<OutboxProcessorHostedService<TDbContext>> logger,
-            TimeSpan? interval = null)
+            ILogger<OutboxProcessorHostedService<TDbContext>> logger)
         {
+            _options = options;
             _serviceProvider = serviceProvider;
             _logger = logger;
-            _interval = interval ?? TimeSpan.FromSeconds(10);
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -63,7 +64,7 @@ namespace Pokok.BuildingBlocks.Outbox
                     _logger.LogError(ex, "Unhandled error in OutboxProcessorHostedService");
                 }
 
-                await Task.Delay(_interval, stoppingToken);
+                await Task.Delay(_options.Value.Interval, stoppingToken);
             }
         }
     }
