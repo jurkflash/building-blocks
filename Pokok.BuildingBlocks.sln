@@ -15,31 +15,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pokok.BuildingBlocks.MultiT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pokok.BuildingBlocks.Cqrs", "src\Pokok.BuildingBlocks.Cqrs\Pokok.BuildingBlocks.Cqrs.csproj", "{223666F2-AAE2-41C2-B28C-5A95FA69AA0D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
-	ProjectSection(SolutionItems) = preProject
-		.github\CODE_OF_CONDUCT.md = .github\CODE_OF_CONDUCT.md
-		.github\CONTRIBUTING.md = .github\CONTRIBUTING.md
-		.github\SECURITY.md = .github\SECURITY.md
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{25A8C428-D371-4F5B-82FF-7EBC6A142DF2}"
-	ProjectSection(SolutionItems) = preProject
-		.github\workflows\nuget-publish.yml = .github\workflows\nuget-publish.yml
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pokok.BuildingBlocks.Outbox", "src\Pokok.BuildingBlocks.Outbox\Pokok.BuildingBlocks.Outbox.csproj", "{C745EF46-0B94-9C5B-0ECF-0D66E7B150FF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pokok.Messaging.Email", "src\Pokok.Messaging.Email\Pokok.Messaging.Email.csproj", "{4CD53201-EB53-4D17-B25F-DB88FCB8BDE0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pokok.BuildingBlocks.Messaging", "src\Pokok.BuildingBlocks.Messaging\Pokok.BuildingBlocks.Messaging.csproj", "{2A5D19ED-A1B1-4731-AF99-61456513E7C6}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0FB0041E-FFB7-452A-9D76-9ECB4800C9B8}"
-	ProjectSection(SolutionItems) = preProject
-		Directory.Build.props = Directory.Build.props
-		Directory.Packages.props = Directory.Packages.props
-		LICENSE = LICENSE
-		README.md = README.md
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{F9AA47A4-C4A9-427F-B987-56F15CC42282}"
 	ProjectSection(SolutionItems) = preProject
@@ -59,6 +39,28 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{7ECE7A8B-A
 		docs\CONTRIBUTING.md = docs\CONTRIBUTING.md
 		docs\dependency-management.md = docs\dependency-management.md
 		docs\release-process.md = docs\release-process.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{0EB65F40-A744-4C8E-A8F1-5F51E5A19BB0}"
+	ProjectSection(SolutionItems) = preProject
+		.github\CODE_OF_CONDUCT.md = .github\CODE_OF_CONDUCT.md
+		.github\CONTRIBUTING.md = .github\CONTRIBUTING.md
+		.github\SECURITY.md = .github\SECURITY.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{412EB278-5475-4D80-A925-8872892E5B84}"
+	ProjectSection(SolutionItems) = preProject
+		docs\coding-standards.md = docs\coding-standards.md
+		docs\CONTRIBUTING.md = docs\CONTRIBUTING.md
+		docs\dependency-management.md = docs\dependency-management.md
+		docs\release-process.md = docs\release-process.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{5673D09B-2338-4298-AF49-33510E2C46F0}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\nuget-publish.yml = .github\workflows\nuget-publish.yml
 	EndProjectSection
 EndProject
 Global
@@ -177,14 +179,15 @@ Global
 		{134A444D-4CD6-4EBE-B9BF-A03147A4D779} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{4D407AAE-A084-4F60-BB6E-535B42586A41} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{223666F2-AAE2-41C2-B28C-5A95FA69AA0D} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
-		{02EA681E-C7D8-13C7-8484-4AC65E1B71E8} = {E51FD9A6-2230-4831-A61E-13DDE61CA144}
-		{25A8C428-D371-4F5B-82FF-7EBC6A142DF2} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{C745EF46-0B94-9C5B-0ECF-0D66E7B150FF} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{4CD53201-EB53-4D17-B25F-DB88FCB8BDE0} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{2A5D19ED-A1B1-4731-AF99-61456513E7C6} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{F9AA47A4-C4A9-427F-B987-56F15CC42282} = {0FB0041E-FFB7-452A-9D76-9ECB4800C9B8}
 		{CC0B94A2-EB78-4188-88C6-39BE87FFAACD} = {F9AA47A4-C4A9-427F-B987-56F15CC42282}
 		{7ECE7A8B-A5EB-470E-92DC-2C02E492C250} = {0FB0041E-FFB7-452A-9D76-9ECB4800C9B8}
+		{0EB65F40-A744-4C8E-A8F1-5F51E5A19BB0} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{412EB278-5475-4D80-A925-8872892E5B84} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{5673D09B-2338-4298-AF49-33510E2C46F0} = {0EB65F40-A744-4C8E-A8F1-5F51E5A19BB0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {92D8DFE5-1E87-4954-A94F-4C07C8AD2996}
