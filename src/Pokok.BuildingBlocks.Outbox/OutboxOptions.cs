@@ -2,6 +2,6 @@
 {
     public class OutboxOptions
     {
-        public TimeSpan Interval { get; set; }
+        public TimeSpan Interval { get; set; } = TimeSpan.FromSeconds(10);
     }
 }

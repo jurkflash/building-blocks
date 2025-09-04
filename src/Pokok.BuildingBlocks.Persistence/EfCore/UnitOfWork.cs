@@ -1,25 +1,35 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using Pokok.BuildingBlocks.Cqrs.Events;
 using Pokok.BuildingBlocks.Domain.Abstractions;
 using Pokok.BuildingBlocks.Persistence.Abstractions;
 
-namespace Pokok.BuildingBlocks.Persistence.Base
+namespace Pokok.BuildingBlocks.Persistence
 {
-    public class UnitOfWorkBase : IUnitOfWork
+    public class UnitOfWork<TContext> : IUnitOfWork where TContext : DbContext
     {
-        private readonly DbContext _context;
-        private readonly IDomainEventDispatcher _domainEventDispatcher;
+        private readonly TContext _context;
+        private readonly IDomainEventDispatcher? _domainEventDispatcher;
+        private readonly ILogger<UnitOfWork<TContext>> _logger;
 
-        public UnitOfWorkBase(DbContext context, IDomainEventDispatcher domainEventDispatcher)
+        public UnitOfWork(TContext context, IDomainEventDispatcher? domainEventDispatcher = null, ILogger<UnitOfWork<TContext>>? logger = null)
         {
             _context = context;
             _domainEventDispatcher = domainEventDispatcher;
+            _logger = logger ?? NullLogger<UnitOfWork<TContext>>.Instance;
         }
 
         public async Task<int> CompleteAsync(CancellationToken cancellationToken = default)
         {
-            // Save DB changes first
+            _logger.LogInformation("Saving changes in {Context}", typeof(TContext).Name);
+
             var result = await _context.SaveChangesAsync(cancellationToken);
+
+            _logger.LogInformation("{Result} changes saved successfully in {Context}", result, typeof(TContext).Name);
+
+            if (_domainEventDispatcher is null) 
+                return result;
 
             // Collect domain events from aggregates
             var aggregates = _context.ChangeTracker
@@ -35,6 +45,9 @@ namespace Pokok.BuildingBlocks.Persistence.Base
 
             // Clear them from the aggregates
             aggregates.ForEach(a => a!.ClearDomainEvents());
+
+            if (domainEvents.Count > 0)
+                _logger.LogInformation("Dispatching {Count} domain events from {Context}", domainEvents.Count, typeof(TContext).Name);
 
             await _domainEventDispatcher.DispatchAsync(domainEvents, cancellationToken);
 

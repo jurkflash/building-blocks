@@ -3,13 +3,13 @@ using Pokok.BuildingBlocks.Common;
 using Pokok.BuildingBlocks.Persistence.Abstractions;
 using Pokok.BuildingBlocks.Persistence.Entities;
 
-namespace Pokok.BuildingBlocks.Persistence.Context
+namespace Pokok.BuildingBlocks.Persistence.EfCore
 {
     public abstract class DbContextBase : DbContext
     {
-        private readonly ICurrentUserService _currentUser;
+        private readonly ICurrentUserService? _currentUser;
 
-        protected DbContextBase(DbContextOptions options, ICurrentUserService currentUser) : base(options) 
+        protected DbContextBase(DbContextOptions options, ICurrentUserService? currentUser = null) : base(options) 
         {
             _currentUser = currentUser;
         }
@@ -21,12 +21,12 @@ namespace Pokok.BuildingBlocks.Persistence.Context
                 if (entry.State == EntityState.Added)
                 {
                     entry.Entity.CreatedAtUtc = DateTime.UtcNow;
-                    entry.Entity.CreatedBy = _currentUser.UserId;
+                    entry.Entity.CreatedBy = _currentUser?.UserId ?? "system";
                 }
                 else if (entry.State == EntityState.Modified)
                 {
                     entry.Entity.ModifiedAtUtc = DateTime.UtcNow;
-                    entry.Entity.ModifiedBy = _currentUser.UserId;
+                    entry.Entity.ModifiedBy = _currentUser?.UserId ?? "system";
                 }
             }
 
@@ -39,7 +39,7 @@ namespace Pokok.BuildingBlocks.Persistence.Context
                     entry.Entity.DeletedAtUtc = DateTime.UtcNow;
 
                     if (entry.Entity is EntityBase entityBase)
-                        entityBase.DeletedBy = _currentUser.UserId;
+                        entityBase.DeletedBy = _currentUser?.UserId ?? "system";
                 }
             }
 
