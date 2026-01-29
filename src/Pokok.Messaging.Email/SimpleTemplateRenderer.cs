@@ -1,31 +1,24 @@
 ﻿using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace Pokok.Messaging.Email
 {
     public class SimpleTemplateRenderer : ITemplateRenderer
     {
-        private readonly EmailTemplatesOptions _templates;
         private readonly ILogger<SimpleTemplateRenderer>? _logger;
 
-        public SimpleTemplateRenderer(IOptions<EmailTemplatesOptions> options, ILogger<SimpleTemplateRenderer>? logger = null)
+        public SimpleTemplateRenderer(ILogger<SimpleTemplateRenderer>? logger = null)
         {
-            _templates = options.Value;
             _logger = logger;
         }
 
-        public (string Subject, string Body) Render(EmailTemplateKey templateKey, object model)
+        public (string Subject, string Body) Render(EmailTemplateOptions template, object model)
         {
-            _logger?.LogDebug("Rendering template {TemplateKey}", templateKey);
+            ArgumentNullException.ThrowIfNull(template);
 
-            var templateOptions = templateKey switch
-            {
-                EmailTemplateKey.UserRegisteredConfirmation => _templates.UserRegisteredConfirmation,
-                _ => throw new ArgumentOutOfRangeException(nameof(templateKey), templateKey, null)
-            };
+            _logger?.LogDebug("Rendering template");
 
-            string subject = templateOptions.Subject;
-            string body = templateOptions.Body;
+            var subject = template.Subject;
+            var body = template.Body;
 
             foreach (var prop in model.GetType().GetProperties())
             {

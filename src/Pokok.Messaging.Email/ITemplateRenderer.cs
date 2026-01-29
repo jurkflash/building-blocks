@@ -2,6 +2,12 @@
 {
     public interface ITemplateRenderer
     {
-        (string Subject, string Body) Render(EmailTemplateKey templateKey, object model);
+        /// <summary>
+        /// Renders an email template using the specified template and model.
+        /// </summary>
+        /// <param name="template">The email template options.</param>
+        /// <param name="model">The model containing placeholder values.</param>
+        /// <returns>A tuple containing the rendered subject and body.</returns>
+        (string Subject, string Body) Render(EmailTemplateOptions template, object model);
     }
 }
