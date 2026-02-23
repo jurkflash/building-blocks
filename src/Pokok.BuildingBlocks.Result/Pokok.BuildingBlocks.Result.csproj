@@ -1,0 +1,9 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <PackageId>Pokok.BuildingBlocks.Result</PackageId>
+    <Description>Railway-oriented Result pattern for elegant error handling without exceptions</Description>
+    <PackageTags>Result;ErrorHandling;Railway;BuildingBlocks</PackageTags>
+  </PropertyGroup>
+
+</Project>
