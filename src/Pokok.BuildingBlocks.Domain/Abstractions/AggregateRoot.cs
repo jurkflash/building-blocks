@@ -2,7 +2,7 @@
 
 namespace Pokok.BuildingBlocks.Domain.Abstractions
 {
-    public abstract class AggregateRoot<TId> : Entity<TId>
+    public abstract class AggregateRoot<TId> : Entity<TId>, IAggregateRoot
     {
         private readonly List<IDomainEvent> _domainEvents = new();
         public IReadOnlyCollection<IDomainEvent> DomainEvents => _domainEvents.AsReadOnly();
