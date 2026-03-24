@@ -52,7 +52,7 @@ public class CqrsRegistrationExtensionsTests
     }
 
     [Fact]
-    public void AddCommandHandlerWithoutValidator_WhenResolved_ReturnsConcreateHandler()
+    public void AddCommandHandlerWithoutValidator_WhenResolved_ReturnsConcreteHandler()
     {
         var services = new ServiceCollection();
         services.AddCommandHandler<RegisteredCommand, bool, SampleCommandHandler>();
