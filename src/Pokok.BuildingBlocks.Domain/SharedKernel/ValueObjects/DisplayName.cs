@@ -7,6 +7,7 @@ namespace Pokok.BuildingBlocks.Domain.SharedKernel.ValueObjects
     {
         public DisplayName(string value) : base(value)
         {
+            Validate();
         }
 
         protected override void Validate()
