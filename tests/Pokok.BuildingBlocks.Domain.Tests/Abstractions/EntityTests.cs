@@ -9,8 +9,31 @@ internal sealed class SampleEntity : Entity<int>
     public SampleEntity(int id) : base(id) { }
 }
 
+internal sealed class DefaultEntity : Entity<int>
+{
+    public DefaultEntity() : base() { }
+}
+
 public class EntityTests
 {
+    [Fact]
+    public void DefaultConstructor_WhenCalled_CreatesEntityWithDefaultId()
+    {
+        var entity = new DefaultEntity();
+
+        Assert.Equal(default, entity.Id);
+    }
+
+    [Fact]
+    public void Equals_EntityComparedToNonEntity_ReturnsFalse()
+    {
+        var entity = new SampleEntity(1);
+
+        var result = entity.Equals("not an entity");
+
+        Assert.False(result);
+    }
+
     [Fact]
     public void Equals_TwoEntitiesWithSameId_ReturnsTrue()
     {

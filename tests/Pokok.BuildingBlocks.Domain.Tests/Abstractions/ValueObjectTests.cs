@@ -12,6 +12,7 @@ internal sealed class Money : ValueObject
     {
         Amount = amount;
         Currency = currency;
+        Validate(); // exercises base Validate()
     }
 
     protected override IEnumerable<object?> GetEqualityComponents()

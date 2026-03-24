@@ -109,4 +109,16 @@ public class DateTimeRangeTests
 
         Assert.Equal(range1, range2);
     }
+
+    [Fact]
+    public void ToString_WithValidRange_ReturnsFormattedString()
+    {
+        var start = new DateTimeOffset(2024, 1, 15, 8, 0, 0, TimeSpan.Zero);
+        var end = new DateTimeOffset(2024, 1, 15, 10, 0, 0, TimeSpan.Zero);
+        var range = new DateTimeRange(start, end);
+
+        var result = range.ToString();
+
+        Assert.Contains("2024", result);
+    }
 }

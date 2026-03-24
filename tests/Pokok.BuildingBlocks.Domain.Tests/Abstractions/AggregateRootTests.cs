@@ -13,8 +13,21 @@ internal sealed class OrderAggregate : AggregateRoot<Guid>
     public void Create() => AddDomainEvent(new OrderCreatedEvent());
 }
 
+internal sealed class DefaultAggregate : AggregateRoot<Guid>
+{
+    public DefaultAggregate() : base() { }
+}
+
 public class AggregateRootTests
 {
+    [Fact]
+    public void DefaultConstructor_WhenCalled_CreatesAggregateWithDefaultId()
+    {
+        var aggregate = new DefaultAggregate();
+
+        Assert.Equal(default, aggregate.Id);
+    }
+
     [Fact]
     public void AddDomainEvent_WhenEventAdded_DomainEventsContainsEvent()
     {
