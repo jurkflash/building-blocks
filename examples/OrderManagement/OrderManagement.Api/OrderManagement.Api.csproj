@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <!-- Disable central package management for examples -->
+    <ManagePackageVersionsCentrally>false</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.18" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.11" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="7.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../../../src/Pokok.BuildingBlocks.Common/Pokok.BuildingBlocks.Common.csproj" />
+    <ProjectReference Include="../../../src/Pokok.BuildingBlocks.Domain/Pokok.BuildingBlocks.Domain.csproj" />
+    <ProjectReference Include="../../../src/Pokok.BuildingBlocks.Cqrs/Pokok.BuildingBlocks.Cqrs.csproj" />
+    <ProjectReference Include="../../../src/Pokok.BuildingBlocks.Persistence/Pokok.BuildingBlocks.Persistence.csproj" />
+  </ItemGroup>
+
+</Project>
