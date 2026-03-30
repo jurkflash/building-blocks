@@ -1,0 +1,41 @@
+title: Pokok Building Blocks
+description: Modular libraries for .NET 8 providing abstractions for building robust, scalable, and maintainable microservices
+theme: jekyll-theme-cayman
+baseurl: /building-blocks
+url: https://jurkflash.github.io
+
+# GitHub configuration
+repository: jurkflash/building-blocks
+
+# Build settings
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
+# Collections
+collections:
+  docs:
+    output: true
+    permalink: /:collection/:path/
+
+# Navigation
+navigation:
+  - title: Home
+    url: /
+  - title: Usage Guide
+    url: /USAGE_GUIDE.html
+  - title: Contributing
+    url: /CONTRIBUTING.html
+  - title: GitHub
+    url: https://github.com/jurkflash/building-blocks
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/

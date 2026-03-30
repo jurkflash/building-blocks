@@ -1,8 +1,27 @@
+---
+layout: default
+title: Pokok Building Blocks
+---
+
 # Pokok Building Blocks
 
-Pokok Building Blocks is a set of modular libraries for .NET 8, providing abstractions and utilities for building robust, scalable, and maintainable microservices and applications. It includes support for CQRS, persistence, domain-driven design, messaging, outbox pattern, multi-tenancy, and more.
+Pokok Building Blocks is a set of modular libraries for .NET 8, providing abstractions and utilities for building robust, scalable, and maintainable microservices and applications.
+
+## Documentation
+
+- **[Usage Guide](USAGE_GUIDE.md)** - Comprehensive guide with examples for all building blocks
+- **[Example Application](../examples/OrderManagement/)** - Working Order Management API demonstrating the building blocks in action
+
+## Quick Links
+
+- [GitHub Repository](https://github.com/jurkflash/building-blocks)
+- [Contributing](CONTRIBUTING.md)
+- [Coding Standards](coding-standards.md)
+- [Dependency Management](dependency-management.md)
+- [Release Process](release-process.md)
 
 ## Features
+
 - CQRS and domain event dispatching
 - Repository and Unit of Work patterns (EF Core)
 - Outbox pattern for reliable messaging
@@ -10,14 +29,7 @@ Pokok Building Blocks is a set of modular libraries for .NET 8, providing abstra
 - Common utilities and value objects
 - Messaging integrations (RabbitMQ, Email)
 
-## Documentation
-
-- **[📖 Online Documentation](https://jurkflash.github.io/building-blocks/)** - View documentation on GitHub Pages
-- **[Usage Guide](docs/USAGE_GUIDE.md)** - Comprehensive guide with examples for all building blocks
-- **[Example Application](examples/OrderManagement/)** - Working Order Management API demonstrating the building blocks in action
-- **[Contributing](docs/CONTRIBUTING.md)** - Guidelines for contributing to this project
-
-## Quick Start
+## Getting Started
 
 ### Installation
 
@@ -30,9 +42,7 @@ dotnet add package Pokok.BuildingBlocks.Persistence
 # ... add other packages as needed
 ```
 
-### Simple Example
-
-Here's a minimal example using the CQRS and Domain building blocks:
+### Quick Example
 
 ```csharp
 // 1. Define a domain entity
@@ -75,8 +85,6 @@ var orderId = await commandDispatcher.DispatchAsync<CreateOrderCommand, Guid>(
     new CreateOrderCommand("John Doe", 99.99m), cancellationToken);
 ```
 
-For a complete working example, see the [Order Management Example](examples/OrderManagement/).
-
 ## Building Blocks
 
 | Package | Description |
@@ -90,44 +98,10 @@ For a complete working example, see the [Order Management Example](examples/Orde
 | **Pokok.BuildingBlocks.MultiTenancy** | Multi-tenant application abstractions |
 | **Pokok.Messaging.Email** | Email message handling and template rendering |
 
-## Getting Started
-
-1. Clone the repository
-2. Open in Visual Studio 2022 or later (or use the .NET CLI)
-3. Build the solution:
-   ```sh
-   dotnet build
-   ```
-4. Run the example application:
-   ```sh
-   cd examples/OrderManagement/OrderManagement.Api
-   dotnet run
-   ```
-5. Navigate to `http://localhost:5000` to see the Swagger UI
-
 ## Learn More
 
-- **[Full Usage Guide](docs/USAGE_GUIDE.md)** - Detailed documentation with examples for each building block
-- **[Example Application](examples/OrderManagement/)** - Complete working example
-- **[Source Code](src/)** - Browse the building block implementations
-
-## Build
-
-```sh
-dotnet build
-```
-
-## Testing
-
-```sh
-dotnet test
-```
+For detailed documentation and examples, see the [Usage Guide](USAGE_GUIDE.md).
 
 ## License
+
 MIT
-
-## Contributing
-Pull requests and issues are welcome! See [CONTRIBUTING.md](docs/CONTRIBUTING.md) for guidelines.
-
-## Security
-See SECURITY.md for vulnerability reporting.
