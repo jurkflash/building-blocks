@@ -11,6 +11,7 @@ namespace Pokok.BuildingBlocks.Domain.SharedKernel.ValueObjects
 
         public Email(string value) : base(value)
         {
+            Validate();
         }
 
         protected override void Validate()

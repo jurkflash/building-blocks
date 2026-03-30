@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>Pokok.BuildingBlocks.Cqrs</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Logging" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Pokok.BuildingBlocks.Cqrs\Pokok.BuildingBlocks.Cqrs.csproj" />
+  </ItemGroup>
+
+</Project>
