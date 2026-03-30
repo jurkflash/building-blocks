@@ -19,6 +19,7 @@ namespace Pokok.BuildingBlocks.Messaging.RabbitMQ
                 Port = options.Value.Port,
                 UserName = options.Value.UserName,
                 Password = options.Value.Password,
+                VirtualHost = options.Value.VirtualHost,
             };
         }
 
@@ -26,12 +27,17 @@ namespace Pokok.BuildingBlocks.Messaging.RabbitMQ
         {
             if (_connection is null || !_connection.IsOpen)
             {
-                _logger.LogInformation("Creating new RabbitMQ connection");
+                _logger.LogInformation("Creating new RabbitMQ connection to {Host}:{Port}{VHost}",
+                    _connectionFactory.Uri?.Host ?? "unknown",
+                    _connectionFactory.Uri?.Port ?? 0,
+                    ((ConnectionFactory)_connectionFactory).VirtualHost);
+
                 _connection = await _connectionFactory.CreateConnectionAsync();
-                _logger.LogInformation("Connected to RabbitMQ server at {Host}:{Port}", _connection.Endpoint.HostName, _connection.Endpoint.Port);
+                _logger.LogInformation("Connected to RabbitMQ server at {Host}:{Port}",
+                    _connection.Endpoint.HostName, _connection.Endpoint.Port);
             }
 
-            _logger.LogInformation("Creating new RabbitMQ channel.");
+            _logger.LogDebug("Creating new RabbitMQ channel.");
             return await _connection.CreateChannelAsync();
         }
 
@@ -42,6 +48,7 @@ namespace Pokok.BuildingBlocks.Messaging.RabbitMQ
                 _logger.LogInformation("Closing RabbitMQ connection.");
                 await _connection.CloseAsync();
                 _connection.Dispose();
+                _connection = null;
             }
         }
     }
