@@ -26,7 +26,7 @@
         /// <summary>
         /// Creates a successful validation result with the specified value.
         /// </summary>
-        public static ValidationResult<TValue> Success(TValue value) =>
+        public static new ValidationResult<TValue> Success(TValue value) =>
             new(value);
 
         /// <summary>

@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>Pokok.Messaging.Email</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Pokok.Messaging.Email\Pokok.Messaging.Email.csproj" />
+  </ItemGroup>
+
+</Project>

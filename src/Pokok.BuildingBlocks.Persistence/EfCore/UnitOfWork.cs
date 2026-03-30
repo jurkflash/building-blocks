@@ -31,25 +31,23 @@ namespace Pokok.BuildingBlocks.Persistence
             if (_domainEventDispatcher is null) 
                 return result;
 
-            // Collect domain events from aggregates
             var aggregates = _context.ChangeTracker
                 .Entries()
-                .Where(e => e.Entity is AggregateRoot<object>) // detect aggregates
-                .Select(e => e.Entity as AggregateRoot<object>)
-                .Where(e => e is not null)
+                .Where(e => e.Entity is IAggregateRoot)
+                .Select(e => (IAggregateRoot)e.Entity)
                 .ToList();
 
             var domainEvents = aggregates
-                .SelectMany(a => a!.DomainEvents)
+                .SelectMany(a => a.DomainEvents)
                 .ToList();
 
-            // Clear them from the aggregates
-            aggregates.ForEach(a => a!.ClearDomainEvents());
+            aggregates.ForEach(a => a.ClearDomainEvents());
 
             if (domainEvents.Count > 0)
+            {
                 _logger.LogInformation("Dispatching {Count} domain events from {Context}", domainEvents.Count, typeof(TContext).Name);
-
-            await _domainEventDispatcher.DispatchAsync(domainEvents, cancellationToken);
+                await _domainEventDispatcher.DispatchAsync(domainEvents, cancellationToken);
+            }
 
             return result;
         }
