@@ -1,0 +1,175 @@
+# ============================================================
+# MODULE MANIFEST — Pokok.BuildingBlocks.MultiTenancy
+# Self-describing structural and semantic metadata.
+# See docs/manifest-schema.md for the full schema reference.
+# ============================================================
+
+module:
+  name: Pokok.BuildingBlocks.MultiTenancy
+  namespace: Pokok.BuildingBlocks.MultiTenancy
+  purpose: >
+    Shared abstractions and utilities for multi-tenant
+    applications using domain-driven design patterns.
+  layer: domain
+  patterns:
+    - Multi-Tenancy
+    - Tenant Isolation
+    - Domain-Driven Design
+
+# ──────────────────────────────────────────────
+# DEPENDENCIES
+# ──────────────────────────────────────────────
+dependencies:
+  projects:
+    - name: Pokok.BuildingBlocks.Domain
+      relationship: >
+        Uses TenantId value object from the Domain shared
+        kernel and ValueObject base class.
+  packages: []
+
+# ──────────────────────────────────────────────
+# PUBLIC API SURFACE
+# ──────────────────────────────────────────────
+public_api:
+  interfaces:
+    - name: ITenantProvider
+      purpose: >
+        Provides the current tenant context for the executing
+        request or operation.
+      methods:
+        - signature: "TenantId? GetCurrentTenantId()"
+          behavior: >
+            Returns the current tenant's ID, or null for
+            system-level operations with no tenant scope.
+
+    - name: ITenantScoped
+      purpose: >
+        Marker interface for entities that belong to a specific
+        tenant.
+      methods:
+        - signature: "TenantId TenantId { get; }"
+          behavior: >
+            Returns the tenant that owns this entity. The value
+            is immutable after construction.
+
+  classes: []
+  exceptions: []
+
+# ──────────────────────────────────────────────
+# BEHAVIORAL CONTRACTS
+# ──────────────────────────────────────────────
+behavioral_contracts:
+  - name: Tenant ID immutability
+    description: >
+      Once an ITenantScoped entity is created with a TenantId,
+      that value must not change. Entities cannot be moved
+      between tenants.
+    enforced_by: >
+      ITenantScoped.TenantId has no setter. Implementations
+      should set TenantId only during construction.
+
+  - name: Nullable tenant context
+    description: >
+      ITenantProvider.GetCurrentTenantId() may return null,
+      indicating a cross-tenant or system-level operation.
+      Consumers must handle the null case.
+    enforced_by: >
+      Nullable return type (TenantId?).
+
+  - name: TenantId validation
+    description: >
+      TenantId is a value object that rejects null or empty
+      strings at construction time.
+    enforced_by: >
+      TenantId constructor validates input and throws on
+      null/empty values (inherited from Domain module).
+
+# ──────────────────────────────────────────────
+# FAILURE MODES
+# ──────────────────────────────────────────────
+failure_modes:
+  - name: Missing tenant context
+    trigger: >
+      ITenantProvider returns null in a context that requires
+      a tenant (e.g., creating a tenant-scoped entity).
+    exception: None (logical error)
+    impact: >
+      Entity may be created without proper tenant association
+      if not validated by the caller.
+    recovery: >
+      Always validate that GetCurrentTenantId() returns a
+      non-null value before creating tenant-scoped entities.
+
+  - name: Missing ITenantProvider registration
+    trigger: >
+      ITenantProvider is not registered in the DI container.
+    exception: InvalidOperationException (from DI)
+    impact: >
+      Any service depending on ITenantProvider fails to
+      resolve.
+    recovery: >
+      Register an ITenantProvider implementation that extracts
+      tenant context from your request pipeline (e.g., HTTP
+      header, JWT claim, subdomain).
+
+  - name: Cross-tenant data access
+    trigger: >
+      Queries are not filtered by TenantId.
+    exception: None (data leak)
+    impact: >
+      Tenant isolation is violated — data from one tenant
+      may be visible to another.
+    recovery: >
+      Always apply tenant filters to queries for
+      ITenantScoped entities. Consider global query filters
+      in EF Core.
+
+# ──────────────────────────────────────────────
+# RULES OF ENGAGEMENT
+# ──────────────────────────────────────────────
+rules_of_engagement:
+  - rule: >
+      Implement ITenantProvider to extract tenant context from
+      the current request (HTTP header, JWT claim, subdomain,
+      etc.).
+    rationale: >
+      The module provides the abstraction only — tenant
+      resolution is application-specific.
+
+  - rule: >
+      Apply ITenantScoped to all entities that belong to a
+      specific tenant.
+    rationale: >
+      This marks which entities need tenant-scoped filtering
+      and establishes the ownership relationship.
+
+  - rule: >
+      Always filter queries for ITenantScoped entities by the
+      current tenant ID.
+    rationale: >
+      Without tenant filtering, data isolation is not enforced.
+      Consider EF Core global query filters.
+
+  - rule: >
+      Validate that GetCurrentTenantId() is non-null before
+      creating tenant-scoped entities.
+    rationale: >
+      Creating entities without a tenant association breaks
+      the multi-tenancy invariant.
+
+# ──────────────────────────────────────────────
+# EXTENSION POINTS
+# ──────────────────────────────────────────────
+extension_points:
+  - name: ITenantProvider
+    type: interface
+    description: >
+      Implement to resolve the current tenant from your
+      application's request context (middleware, claims,
+      headers).
+
+  - name: ITenantScoped
+    type: interface
+    description: >
+      Apply to domain entities to mark them as tenant-owned.
+      Enables generic tenant filtering infrastructure.

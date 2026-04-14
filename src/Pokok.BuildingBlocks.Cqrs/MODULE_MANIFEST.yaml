@@ -1,0 +1,311 @@
+# ============================================================
+# MODULE MANIFEST — Pokok.BuildingBlocks.Cqrs
+# Self-describing structural and semantic metadata.
+# See docs/manifest-schema.md for the full schema reference.
+# ============================================================
+
+module:
+  name: Pokok.BuildingBlocks.Cqrs
+  namespace: Pokok.BuildingBlocks.Cqrs
+  purpose: >
+    CQRS pattern implementation with command/query dispatching,
+    domain event dispatching, and optional validation decorators.
+  layer: application
+  patterns:
+    - CQRS (Command Query Responsibility Segregation)
+    - Mediator
+    - Decorator (validation pipeline)
+    - Domain Event Dispatching
+
+# ──────────────────────────────────────────────
+# DEPENDENCIES
+# ──────────────────────────────────────────────
+dependencies:
+  projects:
+    - name: Pokok.BuildingBlocks.Domain
+      relationship: >
+        Uses IDomainEvent and IDomainEventHandler interfaces
+        for domain event dispatching.
+  packages:
+    - name: Microsoft.Extensions.DependencyInjection
+      purpose: >
+        Service registration extensions and IServiceProvider
+        for handler resolution at runtime.
+    - name: Microsoft.Extensions.Logging.Abstractions
+      purpose: >
+        Structured logging within dispatchers and validation
+        handlers.
+
+# ──────────────────────────────────────────────
+# PUBLIC API SURFACE
+# ──────────────────────────────────────────────
+public_api:
+  interfaces:
+    - name: ICommand<TResponse>
+      purpose: Marker interface for command messages.
+      methods: []
+
+    - name: ICommandHandler<TCommand, TResponse>
+      purpose: Handles a command and returns a response.
+      methods:
+        - signature: "Task<TResponse> HandleAsync(TCommand command, CancellationToken cancellationToken)"
+          behavior: >
+            Executes the command logic and returns the result.
+            May throw for domain or infrastructure errors.
+
+    - name: IQuery<TResponse>
+      purpose: Marker interface for query messages.
+      methods: []
+
+    - name: IQueryHandler<TQuery, TResponse>
+      purpose: Handles a query and returns a response.
+      methods:
+        - signature: "Task<TResponse> HandleAsync(TQuery query, CancellationToken cancellationToken)"
+          behavior: >
+            Executes the query logic and returns the result.
+            Must not have side effects.
+
+    - name: ICommandDispatcher
+      purpose: Dispatches commands to their registered handlers.
+      methods:
+        - signature: "Task<TResponse> DispatchAsync<TCommand, TResponse>(TCommand command, CancellationToken cancellationToken)"
+          behavior: >
+            Resolves the ICommandHandler<TCommand, TResponse>
+            from DI and invokes HandleAsync.
+
+    - name: IQueryDispatcher
+      purpose: Dispatches queries to their registered handlers.
+      methods:
+        - signature: "Task<TResponse> DispatchAsync<TQuery, TResponse>(TQuery query, CancellationToken cancellationToken)"
+          behavior: >
+            Resolves the IQueryHandler<TQuery, TResponse>
+            from DI and invokes HandleAsync.
+
+    - name: IDomainEventDispatcher
+      purpose: Dispatches domain events to all registered handlers.
+      methods:
+        - signature: "Task DispatchAsync(IEnumerable<IDomainEvent> domainEvents, CancellationToken cancellationToken)"
+          behavior: >
+            Iterates each event, discovers handlers via
+            reflection + DI, and invokes them sequentially.
+            Exceptions propagate immediately.
+
+    - name: IValidator<T>
+      purpose: Validates a command or query before execution.
+      methods:
+        - signature: "void Validate(T request)"
+          behavior: >
+            Throws ValidationException if validation fails.
+
+  classes:
+    - name: CommandDispatcher
+      kind: concrete
+      purpose: Default ICommandDispatcher using DI-based handler lookup.
+
+    - name: QueryDispatcher
+      kind: concrete
+      purpose: Default IQueryDispatcher using DI-based handler lookup.
+
+    - name: DomainEventDispatcher
+      kind: concrete
+      purpose: >
+        Default IDomainEventDispatcher using reflection to
+        discover and invoke typed handlers.
+
+    - name: ValidatingCommandHandler<TCommand, TResult>
+      kind: concrete
+      purpose: >
+        Decorator that runs all IValidator<TCommand> instances
+        before delegating to the inner handler.
+
+    - name: ValidatingQueryHandler<TQuery, TResult>
+      kind: concrete
+      purpose: >
+        Decorator that runs all IValidator<TQuery> instances
+        before delegating to the inner handler.
+
+    - name: CqrsRegistrationExtensions
+      kind: static
+      purpose: >
+        IServiceCollection extension methods for registering
+        commands, queries, validators, and dispatchers.
+
+  exceptions:
+    - name: ValidationException
+      thrown_when: >
+        One or more IValidator<T> instances report errors
+        during command or query validation.
+      recovery: >
+        Inspect the Errors property for a list of validation
+        error messages. Fix the input and retry.
+
+# ──────────────────────────────────────────────
+# BEHAVIORAL CONTRACTS
+# ──────────────────────────────────────────────
+behavioral_contracts:
+  - name: One handler per command/query
+    description: >
+      Each ICommand<T> or IQuery<T> type must have exactly one
+      registered handler. The dispatcher resolves a single
+      handler from DI.
+    enforced_by: >
+      DI container throws if no handler is registered.
+      Multiple registrations result in last-wins behavior.
+
+  - name: Multiple handlers per domain event
+    description: >
+      Each IDomainEvent type may have zero or more handlers.
+      All are invoked sequentially.
+    enforced_by: >
+      DomainEventDispatcher uses reflection to find all
+      IDomainEventHandler<T> registrations.
+
+  - name: Validation runs before handling
+    description: >
+      When validators are registered, ValidatingCommandHandler
+      / ValidatingQueryHandler runs ALL validators and
+      accumulates errors before throwing ValidationException.
+    enforced_by: >
+      The decorator pattern wraps the real handler.
+      Registration via AddCommandHandler with TValidator
+      automatically installs the decorator.
+
+  - name: Queries must be side-effect free
+    description: >
+      IQuery<T> handlers should not modify state. The CQRS
+      pattern separates reads from writes.
+    enforced_by: >
+      Convention only. No runtime enforcement.
+
+# ──────────────────────────────────────────────
+# FAILURE MODES
+# ──────────────────────────────────────────────
+failure_modes:
+  - name: No handler registered
+    trigger: >
+      Dispatching a command or query for which no
+      ICommandHandler or IQueryHandler is registered in DI.
+    exception: InvalidOperationException
+    impact: Command/query cannot be executed.
+    recovery: >
+      Register the handler using AddCommandHandler or
+      AddQueryHandler in your service configuration.
+
+  - name: Validation failure
+    trigger: >
+      One or more IValidator<T> instances detect invalid input.
+    exception: ValidationException
+    impact: >
+      The command/query is rejected before the handler runs.
+      The Errors list contains all validation messages.
+    recovery: >
+      Fix the input based on the reported errors and retry.
+
+  - name: Domain event handler exception
+    trigger: >
+      An IDomainEventHandler throws during event handling.
+    exception: Any (propagated from handler)
+    impact: >
+      Event dispatching stops at the failing handler.
+      Remaining handlers for the same event are not invoked.
+    recovery: >
+      Fix the handler bug. Consider idempotent handler design
+      for retry safety.
+
+  - name: Reflection failure in event dispatch
+    trigger: >
+      The DomainEventDispatcher cannot find or invoke a
+      handler method via reflection.
+    exception: TargetInvocationException or similar
+    impact: Event is not handled.
+    recovery: >
+      Ensure handler implements IDomainEventHandler<TEvent>
+      correctly with the expected method signature.
+
+# ──────────────────────────────────────────────
+# RULES OF ENGAGEMENT
+# ──────────────────────────────────────────────
+rules_of_engagement:
+  - rule: >
+      Define commands as records or classes implementing
+      ICommand<TResponse>.
+    rationale: >
+      The dispatcher uses generic type constraints to route
+      commands to the correct handler.
+
+  - rule: >
+      Register handlers via CqrsRegistrationExtensions, not
+      manually in the DI container.
+    rationale: >
+      The extension methods handle validator-decorator wiring
+      and correct lifetimes (scoped).
+
+  - rule: >
+      Keep command/query handlers thin — delegate to domain
+      services and repositories.
+    rationale: >
+      Handlers are orchestrators, not business logic owners.
+
+  - rule: >
+      Register IDomainEventDispatcher as a singleton via
+      AddDomainEventDispatcher().
+    rationale: >
+      The UnitOfWork depends on IDomainEventDispatcher to
+      dispatch events after SaveChanges.
+
+# ──────────────────────────────────────────────
+# EXTENSION POINTS
+# ──────────────────────────────────────────────
+extension_points:
+  - name: ICommandHandler<TCommand, TResponse>
+    type: interface
+    description: >
+      Implement to handle a specific command type.
+
+  - name: IQueryHandler<TQuery, TResponse>
+    type: interface
+    description: >
+      Implement to handle a specific query type.
+
+  - name: IValidator<T>
+    type: interface
+    description: >
+      Implement to add pre-execution validation for a
+      command or query.
+
+  - name: IDomainEventHandler<TDomainEvent>
+    type: interface
+    description: >
+      Implement to react to domain events. Multiple handlers
+      per event type are supported.
+
+# ──────────────────────────────────────────────
+# SERVICE REGISTRATION
+# ──────────────────────────────────────────────
+service_registration:
+  entry_point: CqrsRegistrationExtensions
+  example: |
+    services.AddCommandHandler<CreateOrder, OrderId, CreateOrderHandler>();
+    services.AddCommandHandler<UpdateOrder, bool, UpdateOrderHandler, UpdateOrderValidator>();
+    services.AddQueryHandler<GetOrder, OrderDto, GetOrderHandler>();
+    services.AddDomainEventDispatcher();
+  registered_services:
+    - interface: ICommandDispatcher
+      implementation: CommandDispatcher
+      lifetime: scoped
+
+    - interface: IQueryDispatcher
+      implementation: QueryDispatcher
+      lifetime: scoped
+
+    - interface: IDomainEventDispatcher
+      implementation: DomainEventDispatcher
+      lifetime: singleton
+
+    - interface: ICommandHandler<TCommand, TResult>
+      implementation: User-provided
+      lifetime: scoped
+
+    - interface: IQueryHandler<TQuery, TResult>
+      implementation: User-provided
+      lifetime: scoped

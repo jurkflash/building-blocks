@@ -1,0 +1,110 @@
+# ============================================================
+# MODULE MANIFEST — Pokok.BuildingBlocks.Common
+# Self-describing structural and semantic metadata.
+# See docs/manifest-schema.md for the full schema reference.
+# ============================================================
+
+module:
+  name: Pokok.BuildingBlocks.Common
+  namespace: Pokok.BuildingBlocks.Common
+  purpose: >
+    Common utility classes, extensions, and primitives shared
+    across all Pokok microservices and building block modules.
+  layer: shared-kernel
+  patterns:
+    - Shared Kernel
+
+# ──────────────────────────────────────────────
+# DEPENDENCIES
+# ──────────────────────────────────────────────
+dependencies:
+  projects: []
+  packages: []
+  # This module is intentionally dependency-free so that
+  # every other module can reference it without pulling in
+  # transitive packages.
+
+# ──────────────────────────────────────────────
+# PUBLIC API SURFACE
+# ──────────────────────────────────────────────
+public_api:
+  interfaces:
+    - name: ICurrentUserService
+      purpose: >
+        Provides access to the current authenticated user's
+        identity. Used by persistence and audit modules to
+        populate created-by / modified-by fields.
+      methods:
+        - signature: "string? UserId { get; }"
+          behavior: >
+            Returns the current user's ID, or null when no
+            user is authenticated or the context is unavailable.
+
+  classes: []
+  exceptions: []
+
+# ──────────────────────────────────────────────
+# BEHAVIORAL CONTRACTS
+# ──────────────────────────────────────────────
+behavioral_contracts:
+  - name: Nullable user identity
+    description: >
+      ICurrentUserService.UserId may return null. All consumers
+      must handle the null case gracefully (e.g., default to
+      "system" for audit fields).
+    enforced_by: >
+      Nullable return type (string?) signals to callers that
+      null is a valid value.
+
+  - name: Zero external dependencies
+    description: >
+      This module must never add NuGet package dependencies.
+      It serves as a lightweight shared kernel that all other
+      modules can reference without risk of dependency conflicts.
+    enforced_by: >
+      Code review policy; .csproj contains no PackageReference
+      elements.
+
+# ──────────────────────────────────────────────
+# FAILURE MODES
+# ──────────────────────────────────────────────
+failure_modes:
+  - name: Missing DI registration
+    trigger: >
+      ICurrentUserService is not registered in the DI container.
+    exception: InvalidOperationException (from DI container)
+    impact: >
+      Any service that depends on ICurrentUserService will fail
+      to resolve at runtime.
+    recovery: >
+      Register an implementation of ICurrentUserService in the
+      application's service collection during startup.
+
+# ──────────────────────────────────────────────
+# RULES OF ENGAGEMENT
+# ──────────────────────────────────────────────
+rules_of_engagement:
+  - rule: >
+      Implement ICurrentUserService in your application layer
+      and register it in the DI container.
+    rationale: >
+      The persistence module (DbContextBase) depends on this
+      interface to populate audit trail fields automatically.
+
+  - rule: >
+      Do not add domain or infrastructure concerns to this module.
+    rationale: >
+      This module is the shared kernel — it must remain
+      lightweight and free of business logic to avoid circular
+      dependencies.
+
+# ──────────────────────────────────────────────
+# EXTENSION POINTS
+# ──────────────────────────────────────────────
+extension_points:
+  - name: ICurrentUserService
+    type: interface
+    description: >
+      Implement this interface to provide the authenticated
+      user's identity from your authentication middleware
+      (e.g., JWT claims, session, HTTP context).
