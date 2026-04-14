@@ -3,6 +3,10 @@ using Microsoft.Extensions.Logging;
 
 namespace Pokok.BuildingBlocks.Outbox
 {
+    /// <summary>
+    /// Default <see cref="IOutboxMessageRepository"/> implementation using EF Core.
+    /// Logs all operations at INFO/WARN levels for observability.
+    /// </summary>
     public class OutboxMessageRepository : IOutboxMessageRepository
     {
         private readonly OutboxDbContext _dbContext;

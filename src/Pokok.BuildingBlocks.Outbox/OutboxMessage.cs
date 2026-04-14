@@ -2,6 +2,11 @@
 
 namespace Pokok.BuildingBlocks.Outbox
 {
+    /// <summary>
+    /// Represents a message in the transactional outbox.
+    /// Tracks type, serialized payload, source application, processing status, and error state.
+    /// State machine: New → Processed (on success) or Failed (on error, remains eligible for retry).
+    /// </summary>
     public class OutboxMessage
     {
         public Guid Id { get; private set; } = Guid.NewGuid();

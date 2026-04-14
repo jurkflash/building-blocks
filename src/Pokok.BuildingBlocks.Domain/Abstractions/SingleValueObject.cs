@@ -1,5 +1,11 @@
 ﻿namespace Pokok.BuildingBlocks.Domain.Abstractions
 {
+    /// <summary>
+    /// A value object that wraps a single primitive value of type <typeparamref name="T"/>.
+    /// Throws <see cref="ArgumentNullException"/> if the value is <c>null</c>.
+    /// Override <see cref="Validate(T)"/> to add domain-specific validation.
+    /// </summary>
+    /// <typeparam name="T">The type of the wrapped value.</typeparam>
     public abstract class SingleValueObject<T> : ValueObject
     {
         public T Value { get; }

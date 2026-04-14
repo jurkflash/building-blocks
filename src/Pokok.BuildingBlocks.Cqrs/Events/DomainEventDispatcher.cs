@@ -5,6 +5,11 @@ using System.Diagnostics;
 
 namespace Pokok.BuildingBlocks.Cqrs.Events
 {
+    /// <summary>
+    /// Dispatches domain events to all registered <see cref="IDomainEventHandler{T}"/> implementations.
+    /// Uses reflection to discover typed handlers from the DI container.
+    /// Handlers are invoked sequentially; exceptions propagate immediately.
+    /// </summary>
     public class DomainEventDispatcher : IDomainEventDispatcher
     {
         private readonly IServiceProvider _serviceProvider;

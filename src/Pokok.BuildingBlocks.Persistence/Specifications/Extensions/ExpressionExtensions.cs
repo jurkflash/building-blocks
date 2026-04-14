@@ -2,6 +2,10 @@
 
 namespace Pokok.BuildingBlocks.Persistence.Specifications.Extensions
 {
+    /// <summary>
+    /// Extension methods for combining LINQ expression trees using <c>AndAlso</c>, <c>OrElse</c>, and <c>Not</c> operators.
+    /// Used by the specification combinators (<see cref="AndSpecification{T}"/>, <see cref="OrSpecification{T}"/>, <see cref="NotSpecification{T}"/>).
+    /// </summary>
     public static class ExpressionExtensions
     {
         public static Expression<Func<T, bool>> AndAlso<T>(

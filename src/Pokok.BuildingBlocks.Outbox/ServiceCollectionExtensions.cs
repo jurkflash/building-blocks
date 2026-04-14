@@ -5,6 +5,11 @@ using Microsoft.Extensions.Options;
 
 namespace Pokok.BuildingBlocks.Outbox
 {
+    /// <summary>
+    /// Extension methods for registering the outbox processor and repository in the DI container.
+    /// Call <see cref="AddOutboxProcessor{TDbContext}"/> to register <see cref="IOutboxMessageRepository"/>
+    /// and the <see cref="OutboxProcessorHostedService{TDbContext}"/> background service.
+    /// </summary>
     public static class ServiceCollectionExtensions
     {
         public static IServiceCollection AddOutboxProcessor<TDbContext>(

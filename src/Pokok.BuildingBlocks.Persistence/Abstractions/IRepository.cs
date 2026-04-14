@@ -2,6 +2,11 @@
 
 namespace Pokok.BuildingBlocks.Persistence.Abstractions
 {
+    /// <summary>
+    /// Generic repository interface for CRUD operations.
+    /// Changes are queued in the EF Core change tracker and persisted only when <see cref="IUnitOfWork.CompleteAsync"/> is called.
+    /// </summary>
+    /// <typeparam name="T">The entity type managed by this repository.</typeparam>
     public interface IRepository<T> where T : class
     {
         Task<T?> GetAsync(Guid id, CancellationToken cancellationToken = default);

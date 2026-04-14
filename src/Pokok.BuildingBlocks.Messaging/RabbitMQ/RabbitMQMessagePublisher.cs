@@ -5,6 +5,11 @@ using System.Text;
 
 namespace Pokok.BuildingBlocks.Messaging.RabbitMQ
 {
+    /// <summary>
+    /// <see cref="IMessagePublisher"/> implementation using RabbitMQ topic exchange.
+    /// Publishes persistent, mandatory messages with JSON content type to the configured exchange.
+    /// Default exchange name is <c>pokok.exchange</c>.
+    /// </summary>
     public class RabbitMQMessagePublisher : IMessagePublisher
     {
         private readonly IRabbitMQConnection _connection;

@@ -4,6 +4,10 @@ using Pokok.BuildingBlocks.Cqrs.Abstractions;
 
 namespace Pokok.BuildingBlocks.Cqrs.Dispatching
 {
+    /// <summary>
+    /// Dispatches commands to their registered <see cref="ICommandHandler{TCommand, TResponse}"/>
+    /// via the dependency injection service provider. Logs dispatch and completion at DEBUG level.
+    /// </summary>
     public class CommandDispatcher : ICommandDispatcher
     {
         private readonly IServiceProvider _serviceProvider;

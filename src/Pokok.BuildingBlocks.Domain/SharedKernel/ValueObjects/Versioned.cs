@@ -2,6 +2,11 @@
 
 namespace Pokok.BuildingBlocks.Domain.SharedKernel.ValueObjects
 {
+    /// <summary>
+    /// Immutable value object that wraps a value of type <typeparamref name="T"/> with a version number.
+    /// Useful for optimistic concurrency or tracking entity revisions.
+    /// </summary>
+    /// <typeparam name="T">The type of the wrapped value.</typeparam>
     public sealed class Versioned<T> : ValueObject
     {
         public T Value { get; }

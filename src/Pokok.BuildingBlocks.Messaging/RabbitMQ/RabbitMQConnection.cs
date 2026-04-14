@@ -4,6 +4,11 @@ using RabbitMQ.Client;
 
 namespace Pokok.BuildingBlocks.Messaging.RabbitMQ
 {
+    /// <summary>
+    /// Default <see cref="IRabbitMQConnection"/> implementation that maintains a single shared TCP connection
+    /// to the RabbitMQ broker and creates new channels on demand. The connection is lazily initialized
+    /// on the first call to <see cref="CreateChannelAsync"/>.
+    /// </summary>
     public class RabbitMQConnection : IRabbitMQConnection, IAsyncDisposable
     {
         private IConnection? _connection;

@@ -7,6 +7,12 @@ using System.Text.Json;
 
 namespace Pokok.BuildingBlocks.Messaging.RabbitMQ
 {
+    /// <summary>
+    /// Background service that consumes messages from a RabbitMQ queue, deserializes them as JSON
+    /// to type <typeparamref name="T"/>, and delegates handling to an <see cref="IRabbitMQMessageHandler{T}"/>.
+    /// Messages are acknowledged after handling regardless of success or failure.
+    /// </summary>
+    /// <typeparam name="T">The message type to deserialize and handle.</typeparam>
     public class RabbitMQMessageConsumer<T> : BackgroundService
     {
         private readonly IRabbitMQConnection _connection;

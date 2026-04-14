@@ -3,6 +3,11 @@ using Pokok.BuildingBlocks.Domain.Exceptions;
 
 namespace Pokok.BuildingBlocks.Domain.SharedKernel.ValueObjects
 {
+    /// <summary>
+    /// Immutable value object representing a date/time range with a start and end.
+    /// Throws <see cref="DomainException"/> if <see cref="End"/> is before <see cref="Start"/>.
+    /// Supports overlap detection, containment checks, and duration calculation.
+    /// </summary>
     public sealed class DateTimeRange : ValueObject
     {
         public DateTimeOffset Start { get; }

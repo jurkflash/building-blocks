@@ -7,6 +7,12 @@ using Pokok.BuildingBlocks.Persistence.Abstractions;
 
 namespace Pokok.BuildingBlocks.Persistence
 {
+    /// <summary>
+    /// Default <see cref="IUnitOfWork"/> implementation. Saves all pending changes via EF Core,
+    /// then extracts domain events from <see cref="IAggregateRoot"/> entities and dispatches them.
+    /// Domain events are dispatched AFTER the database transaction commits.
+    /// </summary>
+    /// <typeparam name="TContext">The application's <see cref="DbContext"/> type.</typeparam>
     public class UnitOfWork<TContext> : IUnitOfWork where TContext : DbContext
     {
         private readonly TContext _context;

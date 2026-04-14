@@ -1,5 +1,9 @@
 ﻿namespace Pokok.Messaging.Email
 {
+    /// <summary>
+    /// Data transfer object representing an email message to be dispatched.
+    /// Contains recipient lists (To, Cc, Bcc), subject, body content, and template key.
+    /// </summary>
     public class EmailDispatchMessage
     {
         public List<string> To { get; set; } = new();

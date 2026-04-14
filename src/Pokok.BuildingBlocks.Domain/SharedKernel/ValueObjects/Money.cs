@@ -3,6 +3,11 @@ using Pokok.BuildingBlocks.Domain.Exceptions;
 
 namespace Pokok.BuildingBlocks.Domain.SharedKernel.ValueObjects
 {
+    /// <summary>
+    /// Immutable value object representing a monetary amount with currency.
+    /// Amount must be non-negative and currency is required.
+    /// Throws <see cref="DomainException"/> on negative amount, missing currency, or currency mismatch during addition.
+    /// </summary>
     public sealed class Money : ValueObject
     {
         public decimal Amount { get; }

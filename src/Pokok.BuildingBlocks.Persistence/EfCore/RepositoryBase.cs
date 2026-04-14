@@ -4,6 +4,12 @@ using System.Linq.Expressions;
 
 namespace Pokok.BuildingBlocks.Persistence.Base
 {
+    /// <summary>
+    /// Generic repository base with a strongly-typed <typeparamref name="TContext"/> reference.
+    /// Inherit from this when you need access to your specific DbContext type.
+    /// </summary>
+    /// <typeparam name="TEntity">The entity type managed by this repository.</typeparam>
+    /// <typeparam name="TContext">The specific <see cref="DbContext"/> type.</typeparam>
     public abstract class RepositoryBase<TEntity, TContext> : RepositoryBase<TEntity>
         where TEntity : class
         where TContext : DbContext
@@ -16,6 +22,11 @@ namespace Pokok.BuildingBlocks.Persistence.Base
         }
     }
 
+    /// <summary>
+    /// Abstract repository providing standard CRUD operations backed by EF Core.
+    /// Changes are tracked but not persisted until <see cref="IUnitOfWork.CompleteAsync"/> is called.
+    /// </summary>
+    /// <typeparam name="T">The entity type managed by this repository.</typeparam>
     public abstract class RepositoryBase<T> : IRepository<T> where T : class
     {
         protected readonly DbContext Context;

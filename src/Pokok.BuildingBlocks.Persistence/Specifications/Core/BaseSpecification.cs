@@ -3,6 +3,11 @@ using System.Linq.Expressions;
 
 namespace Pokok.BuildingBlocks.Persistence.Specifications.Core
 {
+    /// <summary>
+    /// Abstract base for specifications providing a filter criteria expression,
+    /// optional ordering, includes, and pagination support.
+    /// </summary>
+    /// <typeparam name="T">The entity type.</typeparam>
     public abstract class BaseSpecification<T> : ISpecification<T>
     {
         protected BaseSpecification(Expression<Func<T, bool>> criteria)

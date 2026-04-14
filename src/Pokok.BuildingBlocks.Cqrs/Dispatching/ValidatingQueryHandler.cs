@@ -5,6 +5,12 @@ using System.Diagnostics;
 
 namespace Pokok.BuildingBlocks.Cqrs.Dispatching
 {
+    /// <summary>
+    /// Decorator that runs all registered <see cref="IValidator{T}"/> instances before delegating to the inner query handler.
+    /// Accumulates all validation errors and throws <see cref="ValidationException"/> if any validation fails.
+    /// </summary>
+    /// <typeparam name="TQuery">The query type being validated and handled.</typeparam>
+    /// <typeparam name="TResult">The return type of the query handler.</typeparam>
     public class ValidatingQueryHandler<TQuery, TResult> : IQueryHandler<TQuery, TResult>
     where TQuery : IQuery<TResult>
     {

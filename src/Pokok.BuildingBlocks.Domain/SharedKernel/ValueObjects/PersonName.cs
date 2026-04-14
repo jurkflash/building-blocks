@@ -3,6 +3,10 @@ using Pokok.BuildingBlocks.Domain.Exceptions;
 
 namespace Pokok.BuildingBlocks.Domain.SharedKernel.ValueObjects
 {
+    /// <summary>
+    /// Immutable value object representing a person's first and last name.
+    /// Both fields are required. Throws <see cref="DomainException"/> if either is empty.
+    /// </summary>
     public sealed class PersonName : ValueObject
     {
         public string FirstName { get; }

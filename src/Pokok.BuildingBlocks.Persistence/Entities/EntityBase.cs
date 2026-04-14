@@ -2,6 +2,10 @@
 
 namespace Pokok.BuildingBlocks.Persistence.Entities
 {
+    /// <summary>
+    /// Convenience base class for persistable entities that implements <see cref="IEntity"/>,
+    /// <see cref="IAuditable"/>, and <see cref="ISoftDeletable"/>. Provides an auto-generated <see cref="Guid"/> Id.
+    /// </summary>
     public abstract class EntityBase : IEntity, IAuditable, ISoftDeletable
     {
         public Guid Id { get; protected set; } = Guid.NewGuid();

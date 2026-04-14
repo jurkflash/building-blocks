@@ -1,5 +1,9 @@
 ﻿namespace Pokok.BuildingBlocks.Domain.Abstractions
 {
+    /// <summary>
+    /// Base class for value objects that use structural (component-based) equality.
+    /// Value objects are immutable and compared by the values returned from <see cref="GetEqualityComponents"/>.
+    /// </summary>
     public abstract class ValueObject : IEquatable<ValueObject>
     {
         protected abstract IEnumerable<object?> GetEqualityComponents();

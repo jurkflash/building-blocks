@@ -3,6 +3,10 @@ using Pokok.BuildingBlocks.Domain.SharedKernel.Enums;
 
 namespace Pokok.BuildingBlocks.Outbox;
 
+/// <summary>
+/// EF Core DbContext for the outbox messages table.
+/// Configures column mappings, type conversions, and constraints for <see cref="OutboxMessage"/>.
+/// </summary>
 public class OutboxDbContext : DbContext
 {
     public DbSet<OutboxMessage> OutboxMessages => Set<OutboxMessage>();

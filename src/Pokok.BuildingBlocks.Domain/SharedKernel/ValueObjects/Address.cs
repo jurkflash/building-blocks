@@ -3,6 +3,11 @@ using Pokok.BuildingBlocks.Domain.Exceptions;
 
 namespace Pokok.BuildingBlocks.Domain.SharedKernel.ValueObjects
 {
+    /// <summary>
+    /// Immutable value object representing a full postal address.
+    /// All fields (Street, City, State, PostalCode, Country) are required.
+    /// Throws <see cref="DomainException"/> if any field is empty.
+    /// </summary>
     public sealed class Address : ValueObject
     {
         public string Street { get; }

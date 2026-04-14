@@ -7,6 +7,11 @@ using Pokok.BuildingBlocks.Cqrs.Validation;
 
 namespace Pokok.BuildingBlocks.Cqrs.Extensions
 {
+    /// <summary>
+    /// Extension methods for registering CQRS command handlers, query handlers, validators,
+    /// and domain event dispatchers in the dependency injection container.
+    /// Handles automatic wiring of validation decorators when validators are provided.
+    /// </summary>
     public static class CqrsRegistrationExtensions
     {
         // With Validator

@@ -3,6 +3,10 @@ using Pokok.BuildingBlocks.Persistence.Specifications.Contracts;
 
 namespace Pokok.BuildingBlocks.Persistence.Specifications.Handlers
 {
+    /// <summary>
+    /// Applies a specification's include expressions to an <see cref="IQueryable{T}"/> for eager loading.
+    /// </summary>
+    /// <typeparam name="T">The entity type.</typeparam>
     public class IncludeSpecificationHandler<T> : ISpecificationHandler<T> where T : class
     {
         public IQueryable<T> Apply(IQueryable<T> query, ISpecification<T> specification)

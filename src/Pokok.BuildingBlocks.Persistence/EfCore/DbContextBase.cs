@@ -5,6 +5,11 @@ using Pokok.BuildingBlocks.Persistence.Entities;
 
 namespace Pokok.BuildingBlocks.Persistence.EfCore
 {
+    /// <summary>
+    /// Abstract base DbContext that intercepts <c>SaveChangesAsync</c> to automatically populate
+    /// audit trail fields on <see cref="IAuditable"/> entities and convert hard deletes to soft
+    /// deletes on <see cref="ISoftDeletable"/> entities. Inherit from this instead of <see cref="DbContext"/>.
+    /// </summary>
     public abstract class DbContextBase : DbContext
     {
         private readonly ICurrentUserService? _currentUser;

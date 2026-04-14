@@ -3,6 +3,10 @@ using Pokok.BuildingBlocks.Domain.Exceptions;
 
 namespace Pokok.BuildingBlocks.Domain.SharedKernel.Enums
 {
+    /// <summary>
+    /// Enumeration-style value object representing the type of an outbox message (e.g., Email, Custom).
+    /// Throws <see cref="DomainException"/> if the value is null or empty.
+    /// </summary>
     public sealed class OutboxMessageType : ValueObject
     {
         public string Value { get; }

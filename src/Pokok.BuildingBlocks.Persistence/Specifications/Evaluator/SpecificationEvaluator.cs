@@ -2,6 +2,11 @@
 
 namespace Pokok.BuildingBlocks.Persistence.Specifications.Evaluator
 {
+    /// <summary>
+    /// Evaluates specifications by chaining all registered <see cref="ISpecificationHandler{T}"/>
+    /// implementations (filter, order, include, paging) against an <see cref="IQueryable{T}"/>.
+    /// </summary>
+    /// <typeparam name="T">The entity type.</typeparam>
     public class SpecificationEvaluator<T> where T : class
     {
         private readonly IEnumerable<ISpecificationHandler<T>> _handlers;

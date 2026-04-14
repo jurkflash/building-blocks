@@ -2,6 +2,11 @@
 
 namespace Pokok.Messaging.Email
 {
+    /// <summary>
+    /// Default <see cref="ITemplateRenderer"/> that uses simple string replacement to substitute
+    /// <c>{PropertyName}</c> placeholders in the email body with values from the model object.
+    /// Logs warnings for unmatched placeholders.
+    /// </summary>
     public class SimpleTemplateRenderer : ITemplateRenderer
     {
         private readonly ILogger<SimpleTemplateRenderer>? _logger;

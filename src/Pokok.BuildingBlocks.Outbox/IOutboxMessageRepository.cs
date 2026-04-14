@@ -1,5 +1,9 @@
 ﻿namespace Pokok.BuildingBlocks.Outbox
 {
+    /// <summary>
+    /// Repository abstraction for outbox message persistence.
+    /// Provides operations to add, query unprocessed, and mark messages as processed or failed.
+    /// </summary>
     public interface IOutboxMessageRepository
     {
         Task AddAsync(OutboxMessage message, CancellationToken cancellationToken = default);

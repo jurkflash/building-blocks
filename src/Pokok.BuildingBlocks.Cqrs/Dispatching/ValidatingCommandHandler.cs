@@ -4,6 +4,12 @@ using Pokok.BuildingBlocks.Cqrs.Validation;
 
 namespace Pokok.BuildingBlocks.Cqrs.Dispatching
 {
+    /// <summary>
+    /// Decorator that runs all registered <see cref="IValidator{T}"/> instances before delegating to the inner command handler.
+    /// Accumulates all validation errors and throws <see cref="ValidationException"/> if any validation fails.
+    /// </summary>
+    /// <typeparam name="TCommand">The command type being validated and handled.</typeparam>
+    /// <typeparam name="TResult">The return type of the command handler.</typeparam>
     public class ValidatingCommandHandler<TCommand, TResult> : ICommandHandler<TCommand, TResult>
         where TCommand : ICommand<TResult>
     {

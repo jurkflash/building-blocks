@@ -1,5 +1,9 @@
 ﻿namespace Pokok.Messaging.Email
 {
+    /// <summary>
+    /// Renders email templates by replacing <c>{PropertyName}</c> placeholders in the subject and body
+    /// with values from a model object using reflection.
+    /// </summary>
     public interface ITemplateRenderer
     {
         /// <summary>
