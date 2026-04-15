@@ -2,15 +2,6 @@
 
 Pokok Building Blocks is a set of modular libraries for .NET 8, providing abstractions and utilities for building robust, scalable, and maintainable microservices and applications. It includes support for CQRS, persistence, domain-driven design, messaging, outbox pattern, multi-tenancy, and more.
 
-## Self-Describing Modules
-
-Every module in this repository is **self-describing**. Each module contains:
-
-- **`MODULE_MANIFEST.yaml`** — A structured manifest with the module's purpose, public API, behavioral contracts, failure modes, rules of engagement, and extension points. Machine-readable (YAML) and human-friendly.
-- **`README.md`** — Enriched documentation with quick-start examples, API tables, contract summaries, and failure mode reference.
-
-This makes the codebase readable by both humans and AI systems without needing to parse every source file. See [`docs/manifest-schema.md`](docs/manifest-schema.md) for the manifest schema reference.
-
 ## Module Catalog
 
 | Module | Layer | Purpose |

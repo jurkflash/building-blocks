@@ -1,6 +1,6 @@
 # Pokok.BuildingBlocks.Persistence
 
-> **Layer:** Infrastructure · **Dependencies:** Common, Cqrs, EF Core · **Manifest:** [MODULE_MANIFEST.yaml](MODULE_MANIFEST.yaml)
+> **Layer:** Infrastructure · **Dependencies:** Common, Cqrs, EF Core
 
 ## Purpose
 

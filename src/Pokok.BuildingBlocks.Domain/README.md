@@ -1,6 +1,6 @@
 # Pokok.BuildingBlocks.Domain
 
-> **Layer:** Domain · **Dependencies:** None · **Manifest:** [MODULE_MANIFEST.yaml](MODULE_MANIFEST.yaml)
+> **Layer:** Domain · **Dependencies:** None
 
 ## Purpose
 

@@ -1,6 +1,6 @@
 # Pokok.BuildingBlocks.Common
 
-> **Layer:** Shared Kernel · **Dependencies:** None · **Manifest:** [MODULE_MANIFEST.yaml](MODULE_MANIFEST.yaml)
+> **Layer:** Shared Kernel · **Dependencies:** None
 
 ## Purpose
 

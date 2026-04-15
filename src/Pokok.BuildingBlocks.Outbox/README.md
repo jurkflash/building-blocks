@@ -1,6 +1,6 @@
 # Pokok.BuildingBlocks.Outbox
 
-> **Layer:** Infrastructure · **Dependencies:** Domain, Messaging, EF Core, Hosting · **Manifest:** [MODULE_MANIFEST.yaml](MODULE_MANIFEST.yaml)
+> **Layer:** Infrastructure · **Dependencies:** Domain, Messaging, EF Core, Hosting
 
 ## Purpose
 

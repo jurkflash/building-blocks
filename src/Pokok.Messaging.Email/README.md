@@ -1,6 +1,6 @@
 # Pokok.Messaging.Email
 
-> **Layer:** Infrastructure · **Dependencies:** Logging, Options · **Manifest:** [MODULE_MANIFEST.yaml](MODULE_MANIFEST.yaml)
+> **Layer:** Infrastructure · **Dependencies:** Logging, Options
 
 ## Purpose
 

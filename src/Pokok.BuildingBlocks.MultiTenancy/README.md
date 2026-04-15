@@ -1,6 +1,6 @@
 # Pokok.BuildingBlocks.MultiTenancy
 
-> **Layer:** Domain · **Dependencies:** Domain · **Manifest:** [MODULE_MANIFEST.yaml](MODULE_MANIFEST.yaml)
+> **Layer:** Domain · **Dependencies:** Domain
 
 ## Purpose
 

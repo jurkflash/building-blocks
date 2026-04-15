@@ -1,6 +1,6 @@
 # Pokok.BuildingBlocks.Messaging
 
-> **Layer:** Infrastructure · **Dependencies:** RabbitMQ.Client, Hosting, Logging, Options · **Manifest:** [MODULE_MANIFEST.yaml](MODULE_MANIFEST.yaml)
+> **Layer:** Infrastructure · **Dependencies:** RabbitMQ.Client, Hosting, Logging, Options
 
 ## Purpose
 

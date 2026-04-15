@@ -1,6 +1,6 @@
 # Pokok.BuildingBlocks.Cqrs
 
-> **Layer:** Application · **Dependencies:** Domain, DI, Logging · **Manifest:** [MODULE_MANIFEST.yaml](MODULE_MANIFEST.yaml)
+> **Layer:** Application · **Dependencies:** Domain, DI, Logging
 
 ## Purpose
 
