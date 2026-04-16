@@ -8,7 +8,14 @@ namespace Pokok.BuildingBlocks.Domain.Abstractions
     /// </summary>
     public interface IAggregateRoot
     {
+        /// <summary>
+        /// Gets the collection of domain events raised by this aggregate.
+        /// </summary>
         IReadOnlyCollection<IDomainEvent> DomainEvents { get; }
+
+        /// <summary>
+        /// Removes all domain events from this aggregate.
+        /// </summary>
         void ClearDomainEvents();
     }
 }

@@ -8,6 +8,9 @@
     /// <typeparam name="T">The type of the wrapped value.</typeparam>
     public abstract class SingleValueObject<T> : ValueObject
     {
+        /// <summary>
+        /// Gets the wrapped value.
+        /// </summary>
         public T Value { get; }
 
         protected SingleValueObject(T value)

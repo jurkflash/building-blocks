@@ -9,6 +9,9 @@ namespace Pokok.BuildingBlocks.Domain.Abstractions
     /// <typeparam name="TId">The type of the entity's identifier.</typeparam>
     public abstract class Entity<TId>
     {
+        /// <summary>
+        /// Gets the unique identifier for this entity.
+        /// </summary>
         public TId Id { get; protected set; } = default!;
 
         protected Entity() { }

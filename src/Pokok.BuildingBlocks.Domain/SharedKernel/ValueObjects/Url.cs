@@ -9,6 +9,10 @@ namespace Pokok.BuildingBlocks.Domain.SharedKernel.ValueObjects
     /// </summary>
     public sealed class Url : SingleValueObject<string>
     {
+        /// <summary>
+        /// Initializes a new <see cref="Url"/> with the specified absolute URI string.
+        /// </summary>
+        /// <param name="value">The absolute URL string.</param>
         public Url(string value) : base(value)
         {
             Validate();

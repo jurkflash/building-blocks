@@ -6,6 +6,9 @@
     /// </summary>
     public interface IDomainEvent
     {
+        /// <summary>
+        /// Gets the UTC date and time when this event occurred.
+        /// </summary>
         DateTime OccurredOn { get; }
     }
 }

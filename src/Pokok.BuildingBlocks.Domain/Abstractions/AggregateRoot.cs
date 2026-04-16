@@ -11,6 +11,10 @@ namespace Pokok.BuildingBlocks.Domain.Abstractions
     public abstract class AggregateRoot<TId> : Entity<TId>, IAggregateRoot
     {
         private readonly List<IDomainEvent> _domainEvents = new();
+
+        /// <summary>
+        /// Gets the collection of domain events raised by this aggregate.
+        /// </summary>
         public IReadOnlyCollection<IDomainEvent> DomainEvents => _domainEvents.AsReadOnly();
 
         protected AggregateRoot() : base() { }
@@ -18,6 +22,9 @@ namespace Pokok.BuildingBlocks.Domain.Abstractions
         protected AggregateRoot(TId id) : base(id) { }
 
         protected void AddDomainEvent(IDomainEvent domainEvent) => _domainEvents.Add(domainEvent);
+        /// <summary>
+        /// Removes all domain events from this aggregate.
+        /// </summary>
         public void ClearDomainEvents() => _domainEvents.Clear();
     }
 }

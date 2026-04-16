@@ -14,6 +14,10 @@ namespace Pokok.BuildingBlocks.Domain.SharedKernel.ValueObjects
         private static readonly Regex EmailRegex =
         new(@"^[^@\s]+@[^@\s]+\.[^@\s]+$", RegexOptions.Compiled);
 
+        /// <summary>
+        /// Initializes a new <see cref="Email"/> with the specified address.
+        /// </summary>
+        /// <param name="value">The email address.</param>
         public Email(string value) : base(value)
         {
             Validate();

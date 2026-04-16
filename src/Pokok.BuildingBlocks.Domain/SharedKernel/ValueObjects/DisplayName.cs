@@ -9,6 +9,10 @@ namespace Pokok.BuildingBlocks.Domain.SharedKernel.ValueObjects
     /// </summary>
     public sealed class DisplayName : SingleValueObject<string>
     {
+        /// <summary>
+        /// Initializes a new <see cref="DisplayName"/> with the specified value.
+        /// </summary>
+        /// <param name="value">The display name value.</param>
         public DisplayName(string value) : base(value)
         {
             Validate();

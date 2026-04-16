@@ -6,6 +6,10 @@
     /// </summary>
     public class DomainException : Exception
     {
+        /// <summary>
+        /// Initializes a new instance of <see cref="DomainException"/> with the specified message.
+        /// </summary>
+        /// <param name="message">The error message describing the domain rule violation.</param>
         public DomainException(string message) : base(message) { }
     }
 }

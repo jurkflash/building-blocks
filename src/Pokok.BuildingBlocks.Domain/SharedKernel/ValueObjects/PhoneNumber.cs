@@ -14,6 +14,10 @@ namespace Pokok.BuildingBlocks.Domain.SharedKernel.ValueObjects
         private static readonly Regex PhoneRegex =
             new(@"^\+?[0-9\s\-()]{7,20}$", RegexOptions.Compiled);
 
+        /// <summary>
+        /// Initializes a new <see cref="PhoneNumber"/> with the specified value.
+        /// </summary>
+        /// <param name="value">The phone number string.</param>
         public PhoneNumber(string value) : base(value)
         {
             Validate();
