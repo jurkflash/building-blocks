@@ -7,6 +7,12 @@ using Pokok.BuildingBlocks.Messaging.Abstractions;
 
 namespace Pokok.BuildingBlocks.Outbox
 {
+    /// <summary>
+    /// Background service that polls the outbox table for unprocessed messages,
+    /// publishes them via <see cref="IMessagePublisher"/>, and marks them as processed or failed.
+    /// Processes up to 10 messages per cycle at the configured <see cref="OutboxOptions.Interval"/>.
+    /// </summary>
+    /// <typeparam name="TDbContext">The application's <see cref="DbContext"/> type containing the outbox table.</typeparam>
     public class OutboxProcessorHostedService<TDbContext> : BackgroundService
         where TDbContext : DbContext
     {
@@ -14,6 +20,12 @@ namespace Pokok.BuildingBlocks.Outbox
         private readonly IServiceProvider _serviceProvider;
         private readonly ILogger<OutboxProcessorHostedService<TDbContext>> _logger;
 
+        /// <summary>
+        /// Initializes a new instance of <see cref="OutboxProcessorHostedService{TDbContext}"/>.
+        /// </summary>
+        /// <param name="options">Configuration options controlling the processing interval.</param>
+        /// <param name="serviceProvider">Service provider for creating scoped service instances.</param>
+        /// <param name="logger">Logger for processor lifecycle events.</param>
         public OutboxProcessorHostedService(
             IOptions<OutboxOptions> options,
             IServiceProvider serviceProvider,

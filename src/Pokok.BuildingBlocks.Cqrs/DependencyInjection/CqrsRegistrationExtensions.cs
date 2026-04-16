@@ -7,8 +7,23 @@ using Pokok.BuildingBlocks.Cqrs.Validation;
 
 namespace Pokok.BuildingBlocks.Cqrs.Extensions
 {
+    /// <summary>
+    /// Extension methods for registering CQRS command handlers, query handlers, validators,
+    /// and domain event dispatchers in the dependency injection container.
+    /// Handles automatic wiring of validation decorators when validators are provided.
+    /// </summary>
     public static class CqrsRegistrationExtensions
     {
+        /// <summary>
+        /// Registers a command handler with an associated validator.
+        /// The handler is wrapped in a <see cref="ValidatingCommandHandler{TCommand, TResult}"/> decorator.
+        /// </summary>
+        /// <typeparam name="TCommand">The command type.</typeparam>
+        /// <typeparam name="TResult">The result type.</typeparam>
+        /// <typeparam name="THandler">The command handler implementation type.</typeparam>
+        /// <typeparam name="TValidator">The validator implementation type.</typeparam>
+        /// <param name="services">The service collection.</param>
+        /// <returns>The service collection for chaining.</returns>
         // With Validator
         public static IServiceCollection AddCommandHandler<TCommand, TResult, THandler, TValidator>(
             this IServiceCollection services)
@@ -31,6 +46,14 @@ namespace Pokok.BuildingBlocks.Cqrs.Extensions
             return services;
         }
 
+        /// <summary>
+        /// Registers a command handler without validation.
+        /// </summary>
+        /// <typeparam name="TCommand">The command type.</typeparam>
+        /// <typeparam name="TResult">The result type.</typeparam>
+        /// <typeparam name="THandler">The command handler implementation type.</typeparam>
+        /// <param name="services">The service collection.</param>
+        /// <returns>The service collection for chaining.</returns>
         // Without Validator
         public static IServiceCollection AddCommandHandler<TCommand, TResult, THandler>(
             this IServiceCollection services)
@@ -41,6 +64,14 @@ namespace Pokok.BuildingBlocks.Cqrs.Extensions
             return services;
         }
 
+        /// <summary>
+        /// Registers a query handler without validation.
+        /// </summary>
+        /// <typeparam name="TQuery">The query type.</typeparam>
+        /// <typeparam name="TResult">The result type.</typeparam>
+        /// <typeparam name="THandler">The query handler implementation type.</typeparam>
+        /// <param name="services">The service collection.</param>
+        /// <returns>The service collection for chaining.</returns>
         public static IServiceCollection AddQueryHandler<TQuery, TResult, THandler>(
         this IServiceCollection services)
         where TQuery : IQuery<TResult>
@@ -50,6 +81,16 @@ namespace Pokok.BuildingBlocks.Cqrs.Extensions
             return services;
         }
 
+        /// <summary>
+        /// Registers a query handler with an associated validator.
+        /// The handler is wrapped in a <see cref="ValidatingQueryHandler{TQuery, TResult}"/> decorator.
+        /// </summary>
+        /// <typeparam name="TQuery">The query type.</typeparam>
+        /// <typeparam name="TResult">The result type.</typeparam>
+        /// <typeparam name="THandler">The query handler implementation type.</typeparam>
+        /// <typeparam name="TValidator">The validator implementation type.</typeparam>
+        /// <param name="services">The service collection.</param>
+        /// <returns>The service collection for chaining.</returns>
         public static IServiceCollection AddQueryHandler<TQuery, TResult, THandler, TValidator>(
             this IServiceCollection services)
             where TQuery : IQuery<TResult>
@@ -71,6 +112,11 @@ namespace Pokok.BuildingBlocks.Cqrs.Extensions
             return services;
         }
 
+        /// <summary>
+        /// Registers the <see cref="DomainEventDispatcher"/> as the <see cref="IDomainEventDispatcher"/> implementation.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <returns>The service collection for chaining.</returns>
         public static IServiceCollection AddDomainEventDispatcher(this IServiceCollection services)
         {
             services.AddScoped<IDomainEventDispatcher, DomainEventDispatcher>();

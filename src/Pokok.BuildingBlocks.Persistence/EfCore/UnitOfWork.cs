@@ -7,12 +7,24 @@ using Pokok.BuildingBlocks.Persistence.Abstractions;
 
 namespace Pokok.BuildingBlocks.Persistence
 {
+    /// <summary>
+    /// Default <see cref="IUnitOfWork"/> implementation. Saves all pending changes via EF Core,
+    /// then extracts domain events from <see cref="IAggregateRoot"/> entities and dispatches them.
+    /// Domain events are dispatched AFTER the database transaction commits.
+    /// </summary>
+    /// <typeparam name="TContext">The application's <see cref="DbContext"/> type.</typeparam>
     public class UnitOfWork<TContext> : IUnitOfWork where TContext : DbContext
     {
         private readonly TContext _context;
         private readonly IDomainEventDispatcher? _domainEventDispatcher;
         private readonly ILogger<UnitOfWork<TContext>> _logger;
 
+        /// <summary>
+        /// Initializes a new instance of <see cref="UnitOfWork{TContext}"/>.
+        /// </summary>
+        /// <param name="context">The EF Core database context.</param>
+        /// <param name="domainEventDispatcher">Optional dispatcher for domain events raised by aggregates.</param>
+        /// <param name="logger">Optional logger for save and dispatch operations.</param>
         public UnitOfWork(TContext context, IDomainEventDispatcher? domainEventDispatcher = null, ILogger<UnitOfWork<TContext>>? logger = null)
         {
             _context = context;
@@ -20,6 +32,7 @@ namespace Pokok.BuildingBlocks.Persistence
             _logger = logger ?? NullLogger<UnitOfWork<TContext>>.Instance;
         }
 
+        /// <inheritdoc />
         public async Task<int> CompleteAsync(CancellationToken cancellationToken = default)
         {
             _logger.LogInformation("Saving changes in {Context}", typeof(TContext).Name);

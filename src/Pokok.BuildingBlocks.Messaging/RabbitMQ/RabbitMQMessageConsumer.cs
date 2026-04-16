@@ -7,6 +7,12 @@ using System.Text.Json;
 
 namespace Pokok.BuildingBlocks.Messaging.RabbitMQ
 {
+    /// <summary>
+    /// Background service that consumes messages from a RabbitMQ queue, deserializes them as JSON
+    /// to type <typeparamref name="T"/>, and delegates handling to an <see cref="IRabbitMQMessageHandler{T}"/>.
+    /// Messages are acknowledged after handling regardless of success or failure.
+    /// </summary>
+    /// <typeparam name="T">The message type to deserialize and handle.</typeparam>
     public class RabbitMQMessageConsumer<T> : BackgroundService
     {
         private readonly IRabbitMQConnection _connection;
@@ -17,6 +23,15 @@ namespace Pokok.BuildingBlocks.Messaging.RabbitMQ
         private readonly ILogger<RabbitMQMessageConsumer<T>> _logger;
         private IChannel? _channel;
 
+        /// <summary>
+        /// Initializes a new instance of <see cref="RabbitMQMessageConsumer{T}"/>.
+        /// </summary>
+        /// <param name="connection">The RabbitMQ connection used to create channels.</param>
+        /// <param name="handler">The handler that processes deserialized messages.</param>
+        /// <param name="logger">Logger for consumer lifecycle and message processing events.</param>
+        /// <param name="queueName">The name of the queue to consume from.</param>
+        /// <param name="routingKey">The routing key to bind the queue with.</param>
+        /// <param name="exchangeName">The exchange name to bind to. Defaults to <c>pokok.exchange</c>.</param>
         public RabbitMQMessageConsumer(
             IRabbitMQConnection connection,
             IRabbitMQMessageHandler<T> handler,

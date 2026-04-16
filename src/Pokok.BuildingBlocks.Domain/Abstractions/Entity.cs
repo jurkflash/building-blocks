@@ -2,8 +2,16 @@
 
 namespace Pokok.BuildingBlocks.Domain.Abstractions
 {
+    /// <summary>
+    /// Base class for domain entities with identity-based equality.
+    /// Two entities are equal if and only if their <see cref="Id"/> values are equal.
+    /// </summary>
+    /// <typeparam name="TId">The type of the entity's identifier.</typeparam>
     public abstract class Entity<TId>
     {
+        /// <summary>
+        /// Gets the unique identifier for this entity.
+        /// </summary>
         public TId Id { get; protected set; } = default!;
 
         protected Entity() { }

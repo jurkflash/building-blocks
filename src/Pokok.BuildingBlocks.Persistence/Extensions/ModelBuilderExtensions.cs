@@ -5,8 +5,17 @@ using System.Linq.Expressions;
 
 namespace Pokok.BuildingBlocks.Persistence.Extensions
 {
+    /// <summary>
+    /// EF Core <see cref="ModelBuilder"/> extension methods for applying global query filters
+    /// (soft delete exclusion) and UTC <see cref="DateTime"/> value conversion across all entities.
+    /// Call <see cref="ApplyGlobalConfigurations"/> in <c>OnModelCreating</c>.
+    /// </summary>
     public static class ModelBuilderExtensions
     {
+        /// <summary>
+        /// Applies global soft-delete query filters and UTC DateTime value converters to all entities.
+        /// </summary>
+        /// <param name="modelBuilder">The model builder to configure.</param>
         public static void ApplyGlobalConfigurations(this ModelBuilder modelBuilder)
         {
             ApplySoftDeleteFilter(modelBuilder);

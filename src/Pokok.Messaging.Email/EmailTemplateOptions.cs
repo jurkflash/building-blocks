@@ -6,7 +6,14 @@ namespace Pokok.Messaging.Email
     /// </summary>
     public abstract class EmailTemplateOptions
     {
+        /// <summary>
+        /// Gets or sets the email subject template.
+        /// </summary>
         public abstract string Subject { get; set; }
+
+        /// <summary>
+        /// Gets or sets the email body template.
+        /// </summary>
         public abstract string Body { get; set; }
     }
 }
