@@ -20,6 +20,12 @@ namespace Pokok.BuildingBlocks.Outbox
         private readonly IServiceProvider _serviceProvider;
         private readonly ILogger<OutboxProcessorHostedService<TDbContext>> _logger;
 
+        /// <summary>
+        /// Initializes a new instance of <see cref="OutboxProcessorHostedService{TDbContext}"/>.
+        /// </summary>
+        /// <param name="options">Configuration options controlling the processing interval.</param>
+        /// <param name="serviceProvider">Service provider for creating scoped service instances.</param>
+        /// <param name="logger">Logger for processor lifecycle events.</param>
         public OutboxProcessorHostedService(
             IOptions<OutboxOptions> options,
             IServiceProvider serviceProvider,

@@ -8,8 +8,15 @@ namespace Pokok.BuildingBlocks.MultiTenancy
     /// </summary>
     public sealed class TenantId : ValueObject
     {
+        /// <summary>
+        /// Gets the underlying string value of the tenant identifier.
+        /// </summary>
         public string Value { get; }
 
+        /// <summary>
+        /// Initializes a new instance of <see cref="TenantId"/> with the specified value.
+        /// </summary>
+        /// <param name="value">The tenant identifier string. Must not be null or whitespace.</param>
         public TenantId(string value)
         {
             if (string.IsNullOrWhiteSpace(value))

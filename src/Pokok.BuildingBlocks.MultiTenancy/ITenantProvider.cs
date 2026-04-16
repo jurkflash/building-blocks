@@ -7,6 +7,10 @@
     /// </summary>
     public interface ITenantProvider
     {
+        /// <summary>
+        /// Gets the tenant identifier for the current execution context.
+        /// </summary>
+        /// <returns>The current <see cref="TenantId"/>, or <c>null</c> if no tenant scope is active.</returns>
         TenantId? GetCurrentTenantId();
     }
 }

@@ -8,6 +8,9 @@ namespace Pokok.BuildingBlocks.Persistence.Converters
     /// </summary>
     public class UtcDateTimeConverter : ValueConverter<DateTime, DateTime>
     {
+        /// <summary>
+        /// Initializes a new instance of <see cref="UtcDateTimeConverter"/>.
+        /// </summary>
         public UtcDateTimeConverter()
             : base(
                 v => v.Kind == DateTimeKind.Utc ? v : DateTime.SpecifyKind(v, DateTimeKind.Utc),

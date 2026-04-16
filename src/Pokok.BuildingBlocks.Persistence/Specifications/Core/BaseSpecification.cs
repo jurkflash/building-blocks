@@ -15,13 +15,31 @@ namespace Pokok.BuildingBlocks.Persistence.Specifications.Core
             Criteria = criteria;
         }
 
+        /// <summary>
+        /// Gets the filter criteria expression for this specification.
+        /// </summary>
         public Expression<Func<T, bool>> Criteria { get; }
 
+        /// <summary>
+        /// Converts this specification to a LINQ expression tree.
+        /// </summary>
+        /// <returns>The filter criteria as an expression.</returns>
         public virtual Expression<Func<T, bool>> ToExpression() => Criteria;
 
+        /// <summary>
+        /// Compiles this specification's criteria to an in-memory predicate function.
+        /// </summary>
+        /// <returns>A compiled predicate delegate.</returns>
         public Func<T, bool> ToPredicate() => Criteria.Compile();
 
+        /// <summary>
+        /// Gets the number of items to skip, or <c>null</c> if paging is not applied.
+        /// </summary>
         public int? Skip { get; private set; }
+
+        /// <summary>
+        /// Gets the number of items to take, or <c>null</c> if paging is not applied.
+        /// </summary>
         public int? Take { get; private set; }
 
         protected void ApplyPaging(int skip, int take)

@@ -12,6 +12,12 @@ namespace Pokok.BuildingBlocks.Outbox
     /// </summary>
     public static class ServiceCollectionExtensions
     {
+        /// <summary>
+        /// Registers the outbox processor background service and message repository in the DI container.
+        /// </summary>
+        /// <typeparam name="TDbContext">The application's <see cref="DbContext"/> type containing the outbox table.</typeparam>
+        /// <param name="services">The service collection to add services to.</param>
+        /// <returns>The service collection for chaining.</returns>
         public static IServiceCollection AddOutboxProcessor<TDbContext>(
             this IServiceCollection services)
             where TDbContext : DbContext

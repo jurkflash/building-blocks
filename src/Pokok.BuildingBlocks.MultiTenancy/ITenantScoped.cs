@@ -6,6 +6,9 @@
     /// </summary>
     public interface ITenantScoped
     {
+        /// <summary>
+        /// Gets the tenant identifier this entity belongs to.
+        /// </summary>
         TenantId TenantId { get; }
     }
 }

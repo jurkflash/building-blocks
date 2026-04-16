@@ -23,6 +23,15 @@ namespace Pokok.BuildingBlocks.Messaging.RabbitMQ
         private readonly ILogger<RabbitMQMessageConsumer<T>> _logger;
         private IChannel? _channel;
 
+        /// <summary>
+        /// Initializes a new instance of <see cref="RabbitMQMessageConsumer{T}"/>.
+        /// </summary>
+        /// <param name="connection">The RabbitMQ connection used to create channels.</param>
+        /// <param name="handler">The handler that processes deserialized messages.</param>
+        /// <param name="logger">Logger for consumer lifecycle and message processing events.</param>
+        /// <param name="queueName">The name of the queue to consume from.</param>
+        /// <param name="routingKey">The routing key to bind the queue with.</param>
+        /// <param name="exchangeName">The exchange name to bind to. Defaults to <c>pokok.exchange</c>.</param>
         public RabbitMQMessageConsumer(
             IRabbitMQConnection connection,
             IRabbitMQMessageHandler<T> handler,

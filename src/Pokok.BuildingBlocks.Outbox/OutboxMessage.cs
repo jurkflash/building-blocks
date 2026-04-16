@@ -9,6 +9,9 @@ namespace Pokok.BuildingBlocks.Outbox
     /// </summary>
     public class OutboxMessage
     {
+        /// <summary>
+        /// Gets the unique identifier for the outbox message.
+        /// </summary>
         public Guid Id { get; private set; } = Guid.NewGuid();
 
         /// <summary>
@@ -43,6 +46,13 @@ namespace Pokok.BuildingBlocks.Outbox
         // EF Core constructor
         private OutboxMessage() { }
 
+        /// <summary>
+        /// Initializes a new instance of <see cref="OutboxMessage"/> with the specified type, payload, and source.
+        /// </summary>
+        /// <param name="type">The message type identifier.</param>
+        /// <param name="payload">The serialized message payload.</param>
+        /// <param name="sourceApp">The identifier of the application that created this message.</param>
+        /// <param name="occurredOnUtc">The UTC timestamp when the event occurred. Defaults to <see cref="DateTime.UtcNow"/>.</param>
         public OutboxMessage(
             OutboxMessageType type,
             string payload,
@@ -55,12 +65,19 @@ namespace Pokok.BuildingBlocks.Outbox
             OccurredOnUtc = occurredOnUtc ?? DateTime.UtcNow;
         }
 
+        /// <summary>
+        /// Marks this message as successfully processed and clears any previous error.
+        /// </summary>
         public void MarkAsProcessed()
         {
             ProcessedOnUtc = DateTime.UtcNow;
             Error = null;
         }
 
+        /// <summary>
+        /// Marks this message as failed with the specified error, making it eligible for retry.
+        /// </summary>
+        /// <param name="error">The error message describing the failure.</param>
         public void MarkAsFailed(string error)
         {
             ProcessedOnUtc = null;

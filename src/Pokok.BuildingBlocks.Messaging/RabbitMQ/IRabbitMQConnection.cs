@@ -9,6 +9,10 @@ namespace Pokok.BuildingBlocks.Messaging.RabbitMQ
     /// </summary>
     public interface IRabbitMQConnection : IAsyncDisposable
     {
+        /// <summary>
+        /// Creates a new RabbitMQ channel, establishing the connection if necessary.
+        /// </summary>
+        /// <returns>A new <see cref="IChannel"/> instance.</returns>
         Task<IChannel> CreateChannelAsync();
     }
 }

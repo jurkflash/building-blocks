@@ -7,8 +7,19 @@
     /// </summary>
     public interface ISoftDeletable
     {
+        /// <summary>
+        /// Gets or sets a value indicating whether the entity has been soft-deleted.
+        /// </summary>
         bool IsDeleted { get; set; }
+
+        /// <summary>
+        /// Gets or sets the UTC timestamp when the entity was soft-deleted.
+        /// </summary>
         DateTime? DeletedAtUtc { get; set; }
+
+        /// <summary>
+        /// Gets or sets the identifier of the user who deleted the entity.
+        /// </summary>
         string? DeletedBy { get; set; }
     }
 }

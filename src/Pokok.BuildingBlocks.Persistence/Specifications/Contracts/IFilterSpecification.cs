@@ -8,6 +8,9 @@ namespace Pokok.BuildingBlocks.Persistence.Specifications.Contracts
     /// <typeparam name="T">The entity type to filter.</typeparam>
     public interface IFilterSpecification<T>
     {
+        /// <summary>
+        /// Gets the filter criteria expression.
+        /// </summary>
         Expression<Func<T, bool>> Criteria { get; }
     }
 }

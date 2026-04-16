@@ -8,17 +8,44 @@ namespace Pokok.BuildingBlocks.Persistence.Entities
     /// </summary>
     public abstract class EntityBase : IEntity, IAuditable, ISoftDeletable
     {
+        /// <summary>
+        /// Gets the unique identifier for the entity.
+        /// </summary>
         public Guid Id { get; protected set; } = Guid.NewGuid();
 
-        // Auditable
+        /// <summary>
+        /// Gets or sets the UTC timestamp when the entity was created.
+        /// </summary>
         public DateTime CreatedAtUtc { get; set; }
+
+        /// <summary>
+        /// Gets or sets the identifier of the user who created the entity.
+        /// </summary>
         public string? CreatedBy { get; set; } 
+
+        /// <summary>
+        /// Gets or sets the UTC timestamp when the entity was last modified.
+        /// </summary>
         public DateTime? ModifiedAtUtc { get; set; }
+
+        /// <summary>
+        /// Gets or sets the identifier of the user who last modified the entity.
+        /// </summary>
         public string? ModifiedBy { get; set; }
 
-        // Soft delete
+        /// <summary>
+        /// Gets or sets a value indicating whether the entity has been soft-deleted.
+        /// </summary>
         public bool IsDeleted { get; set; }
+
+        /// <summary>
+        /// Gets or sets the UTC timestamp when the entity was soft-deleted.
+        /// </summary>
         public DateTime? DeletedAtUtc { get; set; }
+
+        /// <summary>
+        /// Gets or sets the identifier of the user who deleted the entity.
+        /// </summary>
         public string? DeletedBy { get; set; }
     }
 }

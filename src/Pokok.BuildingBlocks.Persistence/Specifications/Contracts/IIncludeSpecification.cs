@@ -8,6 +8,9 @@ namespace Pokok.BuildingBlocks.Persistence.Specifications.Contracts
     /// <typeparam name="T">The root entity type.</typeparam>
     public interface IIncludeSpecification<T> : ISpecification<T>
     {
+        /// <summary>
+        /// Gets the list of include expressions for eager loading related entities.
+        /// </summary>
         List<Expression<Func<T, object>>> Includes { get; }
     }
 }

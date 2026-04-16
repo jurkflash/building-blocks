@@ -17,6 +17,12 @@ namespace Pokok.BuildingBlocks.Messaging.RabbitMQ
         private readonly string _exchangeName;
         private IChannel? _channel;
 
+        /// <summary>
+        /// Initializes a new instance of <see cref="RabbitMQMessagePublisher"/>.
+        /// </summary>
+        /// <param name="connection">The RabbitMQ connection used to create channels.</param>
+        /// <param name="logger">Logger for publish lifecycle events.</param>
+        /// <param name="exchangeName">The exchange name to publish to. Defaults to <c>pokok.exchange</c>.</param>
         public RabbitMQMessagePublisher(
             IRabbitMQConnection connection,
             ILogger<RabbitMQMessagePublisher> logger,
@@ -27,6 +33,7 @@ namespace Pokok.BuildingBlocks.Messaging.RabbitMQ
             _exchangeName = exchangeName;
         }
 
+        /// <inheritdoc />
         public async Task PublishAsync(string messageType, string payload, CancellationToken cancellationToken)
         {
             try

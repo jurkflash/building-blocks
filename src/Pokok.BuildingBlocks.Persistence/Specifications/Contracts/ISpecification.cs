@@ -9,6 +9,10 @@ namespace Pokok.BuildingBlocks.Persistence.Specifications.Contracts
     /// <typeparam name="T">The entity type to evaluate.</typeparam>
     public interface ISpecification<T>
     {
+        /// <summary>
+        /// Converts this specification to a LINQ expression tree.
+        /// </summary>
+        /// <returns>The filter criteria as an expression.</returns>
         Expression<Func<T, bool>> ToExpression();
     }
 }

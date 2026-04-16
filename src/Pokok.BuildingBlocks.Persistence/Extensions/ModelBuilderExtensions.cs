@@ -12,6 +12,10 @@ namespace Pokok.BuildingBlocks.Persistence.Extensions
     /// </summary>
     public static class ModelBuilderExtensions
     {
+        /// <summary>
+        /// Applies global soft-delete query filters and UTC DateTime value converters to all entities.
+        /// </summary>
+        /// <param name="modelBuilder">The model builder to configure.</param>
         public static void ApplyGlobalConfigurations(this ModelBuilder modelBuilder)
         {
             ApplySoftDeleteFilter(modelBuilder);

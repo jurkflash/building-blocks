@@ -8,6 +8,7 @@ namespace Pokok.BuildingBlocks.Persistence.Specifications.Handlers
     /// <typeparam name="T">The entity type.</typeparam>
     public class FilteringSpecificationHandler<T> : ISpecificationHandler<T>
     {
+        /// <inheritdoc />
         public IQueryable<T> Apply(IQueryable<T> query, ISpecification<T> specification)
         {
             var predicate = specification.ToExpression();

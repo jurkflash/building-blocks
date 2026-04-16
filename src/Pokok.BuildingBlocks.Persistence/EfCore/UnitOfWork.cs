@@ -19,6 +19,12 @@ namespace Pokok.BuildingBlocks.Persistence
         private readonly IDomainEventDispatcher? _domainEventDispatcher;
         private readonly ILogger<UnitOfWork<TContext>> _logger;
 
+        /// <summary>
+        /// Initializes a new instance of <see cref="UnitOfWork{TContext}"/>.
+        /// </summary>
+        /// <param name="context">The EF Core database context.</param>
+        /// <param name="domainEventDispatcher">Optional dispatcher for domain events raised by aggregates.</param>
+        /// <param name="logger">Optional logger for save and dispatch operations.</param>
         public UnitOfWork(TContext context, IDomainEventDispatcher? domainEventDispatcher = null, ILogger<UnitOfWork<TContext>>? logger = null)
         {
             _context = context;
@@ -26,6 +32,7 @@ namespace Pokok.BuildingBlocks.Persistence
             _logger = logger ?? NullLogger<UnitOfWork<TContext>>.Instance;
         }
 
+        /// <inheritdoc />
         public async Task<int> CompleteAsync(CancellationToken cancellationToken = default)
         {
             _logger.LogInformation("Saving changes in {Context}", typeof(TContext).Name);

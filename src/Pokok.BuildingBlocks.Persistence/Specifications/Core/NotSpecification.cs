@@ -9,6 +9,10 @@ namespace Pokok.BuildingBlocks.Persistence.Specifications.Core
     /// <typeparam name="T">The entity type.</typeparam>
     public class NotSpecification<T> : BaseSpecification<T>
     {
+        /// <summary>
+        /// Initializes a new instance that negates the specified specification.
+        /// </summary>
+        /// <param name="spec">The specification to negate.</param>
         public NotSpecification(ISpecification<T> spec)
                 : base(spec.ToExpression().Not())
         {

@@ -8,7 +8,14 @@ namespace Pokok.BuildingBlocks.Persistence.Specifications.Core
     /// <typeparam name="T">The entity type.</typeparam>
     public abstract class PaginatedSpecification<T> : BaseSpecification<T>
     {
+        /// <summary>
+        /// Gets the one-based page number.
+        /// </summary>
         public int PageNumber { get; }
+
+        /// <summary>
+        /// Gets the number of items per page.
+        /// </summary>
         public int PageSize { get; }
 
         protected PaginatedSpecification(Expression<Func<T, bool>> criteria, int pageNumber, int pageSize)

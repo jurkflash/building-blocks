@@ -8,6 +8,7 @@ namespace Pokok.BuildingBlocks.Persistence.Specifications.Handlers
     /// <typeparam name="T">The entity type.</typeparam>
     public class OrderSpecificationHandler<T> : ISpecificationHandler<T>
     {
+        /// <inheritdoc />
         public IQueryable<T> Apply(IQueryable<T> query, ISpecification<T> specification)
         {
             if (specification is IOrderSpecification<T> orderSpec)

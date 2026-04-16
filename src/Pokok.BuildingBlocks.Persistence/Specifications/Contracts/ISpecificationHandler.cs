@@ -7,6 +7,12 @@
     /// <typeparam name="T">The entity type to query.</typeparam>
     public interface ISpecificationHandler<T>
     {
+        /// <summary>
+        /// Applies this handler's logic to the query based on the specification.
+        /// </summary>
+        /// <param name="query">The source queryable.</param>
+        /// <param name="specification">The specification containing query criteria.</param>
+        /// <returns>The modified queryable with this handler's logic applied.</returns>
         IQueryable<T> Apply(IQueryable<T> query, ISpecification<T> specification);
     }
 }

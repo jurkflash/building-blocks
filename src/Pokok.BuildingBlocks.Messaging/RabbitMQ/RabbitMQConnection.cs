@@ -15,6 +15,11 @@ namespace Pokok.BuildingBlocks.Messaging.RabbitMQ
         private readonly IConnectionFactory _connectionFactory;
         private readonly ILogger<RabbitMQConnection> _logger;
 
+        /// <summary>
+        /// Initializes a new instance of <see cref="RabbitMQConnection"/> with the specified options and logger.
+        /// </summary>
+        /// <param name="options">RabbitMQ connection configuration options.</param>
+        /// <param name="logger">Logger for connection lifecycle events.</param>
         public RabbitMQConnection(IOptions<RabbitMQOptions> options, ILogger<RabbitMQConnection> logger)
         {
             _logger = logger;
@@ -27,6 +32,7 @@ namespace Pokok.BuildingBlocks.Messaging.RabbitMQ
             };
         }
 
+        /// <inheritdoc />
         public async Task<IChannel> CreateChannelAsync()
         {
             if (_connection is null || !_connection.IsOpen)

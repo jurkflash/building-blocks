@@ -9,6 +9,7 @@ namespace Pokok.BuildingBlocks.Persistence.Specifications.Handlers
     /// <typeparam name="T">The entity type.</typeparam>
     public class PagingSpecificationHandler<T> : ISpecificationHandler<T>
     {
+        /// <inheritdoc />
         public IQueryable<T> Apply(IQueryable<T> query, ISpecification<T> specification)
         {
             if (specification is IPagingSpecification pagingSpec && pagingSpec.IsPagingEnabled)

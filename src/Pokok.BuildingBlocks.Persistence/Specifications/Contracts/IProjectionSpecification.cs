@@ -9,6 +9,9 @@ namespace Pokok.BuildingBlocks.Persistence.Specifications.Contracts
     /// <typeparam name="TResult">The projected result type.</typeparam>
     public interface IProjectionSpecification<T, TResult>
     {
+        /// <summary>
+        /// Gets the projection selector expression.
+        /// </summary>
         Expression<Func<T, TResult>> Selector { get; }
     }
 }

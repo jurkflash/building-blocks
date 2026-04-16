@@ -11,11 +11,16 @@ namespace Pokok.Messaging.Email
     {
         private readonly ILogger<SimpleTemplateRenderer>? _logger;
 
+        /// <summary>
+        /// Initializes a new instance of <see cref="SimpleTemplateRenderer"/>.
+        /// </summary>
+        /// <param name="logger">Optional logger for template rendering diagnostics.</param>
         public SimpleTemplateRenderer(ILogger<SimpleTemplateRenderer>? logger = null)
         {
             _logger = logger;
         }
 
+        /// <inheritdoc />
         public (string Subject, string Body) Render(EmailTemplateOptions template, object model)
         {
             ArgumentNullException.ThrowIfNull(template);

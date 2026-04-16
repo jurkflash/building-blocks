@@ -9,6 +9,9 @@ namespace Pokok.BuildingBlocks.Persistence.Specifications.Examples
     /// </summary>
     public class ActiveUsersSpecification : BaseSpecification<User>
     {
+        /// <summary>
+        /// Initializes a new instance that filters for active (non-deleted) users.
+        /// </summary>
         public ActiveUsersSpecification()
         : base(user => /*user.IsActive &&*/ !user.IsDeleted)
         {

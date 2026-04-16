@@ -9,6 +9,7 @@ namespace Pokok.BuildingBlocks.Persistence.Specifications.Handlers
     /// <typeparam name="T">The entity type.</typeparam>
     public class IncludeSpecificationHandler<T> : ISpecificationHandler<T> where T : class
     {
+        /// <inheritdoc />
         public IQueryable<T> Apply(IQueryable<T> query, ISpecification<T> specification)
         {
             if (specification is IIncludeSpecification<T> includeSpec)

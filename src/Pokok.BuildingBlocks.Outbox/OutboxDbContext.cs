@@ -9,8 +9,15 @@ namespace Pokok.BuildingBlocks.Outbox;
 /// </summary>
 public class OutboxDbContext : DbContext
 {
+    /// <summary>
+    /// Gets the set of outbox messages.
+    /// </summary>
     public DbSet<OutboxMessage> OutboxMessages => Set<OutboxMessage>();
 
+    /// <summary>
+    /// Initializes a new instance of <see cref="OutboxDbContext"/> with the specified options.
+    /// </summary>
+    /// <param name="options">The DbContext configuration options.</param>
     public OutboxDbContext(DbContextOptions options)
         : base(options)
     {
