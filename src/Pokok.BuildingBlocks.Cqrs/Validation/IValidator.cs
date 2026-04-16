@@ -7,6 +7,10 @@
     /// <typeparam name="T">The type of the request (command or query) to validate.</typeparam>
     public interface IValidator<T>
     {
+        /// <summary>
+        /// Validates the specified request, throwing <see cref="ValidationException"/> on failure.
+        /// </summary>
+        /// <param name="request">The request to validate.</param>
         void Validate(T request);
     }
 }

@@ -8,6 +8,12 @@
     /// <typeparam name="TResponse">The type of the result returned after handling.</typeparam>
     public interface ICommandHandler<TCommand, TResponse> where TCommand : ICommand<TResponse>
     {
+        /// <summary>
+        /// Handles the specified command and returns a result.
+        /// </summary>
+        /// <param name="command">The command to handle.</param>
+        /// <param name="cancellationToken">A token to cancel the operation.</param>
+        /// <returns>The result of handling the command.</returns>
         Task<TResponse> HandleAsync(TCommand command, CancellationToken cancellationToken);
     }
 }

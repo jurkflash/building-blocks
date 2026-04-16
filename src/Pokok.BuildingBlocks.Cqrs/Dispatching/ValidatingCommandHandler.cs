@@ -17,6 +17,12 @@ namespace Pokok.BuildingBlocks.Cqrs.Dispatching
         private readonly IEnumerable<IValidator<TCommand>> _validators;
         private readonly ILogger<ValidatingCommandHandler<TCommand, TResult>> _logger;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ValidatingCommandHandler{TCommand, TResult}"/> class.
+        /// </summary>
+        /// <param name="inner">The inner command handler to delegate to after validation.</param>
+        /// <param name="validators">The validators to run before handling.</param>
+        /// <param name="logger">The logger instance.</param>
         public ValidatingCommandHandler(
             ICommandHandler<TCommand, TResult> inner,
             IEnumerable<IValidator<TCommand>> validators,
@@ -27,6 +33,12 @@ namespace Pokok.BuildingBlocks.Cqrs.Dispatching
             _logger = logger;
         }
 
+        /// <summary>
+        /// Validates the command and delegates to the inner handler if validation passes.
+        /// </summary>
+        /// <param name="command">The command to validate and handle.</param>
+        /// <param name="cancellationToken">A token to cancel the operation.</param>
+        /// <returns>The result of handling the command.</returns>
         public async Task<TResult> HandleAsync(TCommand command, CancellationToken cancellationToken)
         {
             var errors = new List<string>();

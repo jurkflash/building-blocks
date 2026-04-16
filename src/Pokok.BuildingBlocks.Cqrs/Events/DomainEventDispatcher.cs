@@ -15,12 +15,23 @@ namespace Pokok.BuildingBlocks.Cqrs.Events
         private readonly IServiceProvider _serviceProvider;
         private readonly ILogger<DomainEventDispatcher> _logger;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DomainEventDispatcher"/> class.
+        /// </summary>
+        /// <param name="serviceProvider">The service provider used to resolve event handlers.</param>
+        /// <param name="logger">The logger instance.</param>
         public DomainEventDispatcher(IServiceProvider serviceProvider, ILogger<DomainEventDispatcher> logger)
         {
             _serviceProvider = serviceProvider;
             _logger = logger;
         }
 
+        /// <summary>
+        /// Dispatches the specified domain events to all registered handlers sequentially.
+        /// </summary>
+        /// <param name="domainEvents">The domain events to dispatch.</param>
+        /// <param name="cancellationToken">A token to cancel the operation.</param>
+        /// <returns>A task representing the asynchronous operation.</returns>
         public async Task DispatchAsync(IEnumerable<IDomainEvent> domainEvents, CancellationToken cancellationToken = default)
         {
             foreach (var domainEvent in domainEvents)

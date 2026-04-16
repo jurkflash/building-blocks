@@ -13,12 +13,25 @@ namespace Pokok.BuildingBlocks.Cqrs.Dispatching
         private readonly IServiceProvider _serviceProvider;
         private readonly ILogger<QueryDispatcher> _logger;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="QueryDispatcher"/> class.
+        /// </summary>
+        /// <param name="serviceProvider">The service provider used to resolve query handlers.</param>
+        /// <param name="logger">The logger instance.</param>
         public QueryDispatcher(IServiceProvider serviceProvider, ILogger<QueryDispatcher> logger)
         {
             _serviceProvider = serviceProvider;
             _logger = logger;
         }
 
+        /// <summary>
+        /// Dispatches the specified query to its registered handler.
+        /// </summary>
+        /// <typeparam name="TQuery">The query type.</typeparam>
+        /// <typeparam name="TResult">The result type.</typeparam>
+        /// <param name="query">The query to dispatch.</param>
+        /// <param name="cancellationToken">A token to cancel the operation.</param>
+        /// <returns>The result of handling the query.</returns>
         public async Task<TResult> DispatchAsync<TQuery, TResult>(
             TQuery query,
             CancellationToken cancellationToken = default)
