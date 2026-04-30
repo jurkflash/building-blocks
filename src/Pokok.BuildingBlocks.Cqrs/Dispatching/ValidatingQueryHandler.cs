@@ -42,7 +42,7 @@ namespace Pokok.BuildingBlocks.Cqrs.Dispatching
         /// <returns>The result of handling the query.</returns>
         public async Task<TResult> HandleAsync(TQuery query, CancellationToken cancellationToken)
         {
-            var errors = new List<string>();
+            List<string> errors = [];
 
             foreach (var validator in _validators)
             {
@@ -58,7 +58,7 @@ namespace Pokok.BuildingBlocks.Cqrs.Dispatching
                 }
             }
 
-            if (errors.Any())
+            if (errors.Count > 0)
             {
                 _logger.LogError("Query {QueryType} failed validation: {Errors}", typeof(TQuery).Name, string.Join("; ", errors));
 

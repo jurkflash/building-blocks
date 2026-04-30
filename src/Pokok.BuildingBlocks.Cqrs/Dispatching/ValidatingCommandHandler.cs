@@ -41,7 +41,7 @@ namespace Pokok.BuildingBlocks.Cqrs.Dispatching
         /// <returns>The result of handling the command.</returns>
         public async Task<TResult> HandleAsync(TCommand command, CancellationToken cancellationToken)
         {
-            var errors = new List<string>();
+            List<string> errors = [];
 
             foreach (var validator in _validators)
             {
@@ -57,7 +57,7 @@ namespace Pokok.BuildingBlocks.Cqrs.Dispatching
                 }
             }
 
-            if (errors.Any())
+            if (errors.Count > 0)
             {
                 _logger.LogError("Command {CommandType} failed validation: {Errors}", typeof(TCommand).Name, string.Join("; ", errors));
                 throw new ValidationException(errors);

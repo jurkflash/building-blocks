@@ -41,7 +41,7 @@ namespace Pokok.BuildingBlocks.Persistence.Base
         /// <inheritdoc />
         public virtual async Task<T?> GetAsync(Guid id, CancellationToken cancellationToken = default)
         {
-            return await DbSet.FindAsync(new object?[] { id }, cancellationToken: cancellationToken);
+            return await DbSet.FindAsync([id], cancellationToken: cancellationToken);
         }
 
         /// <inheritdoc />

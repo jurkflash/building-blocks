@@ -23,6 +23,10 @@ namespace Pokok.BuildingBlocks.Domain.SharedKernel.ValueObjects
         /// Creates a new <see cref="UserId"/> with a randomly generated GUID.
         /// </summary>
         /// <returns>A new unique <see cref="UserId"/>.</returns>
+#if NET9_0_OR_GREATER
+        public static UserId New() => new(Guid.CreateVersion7());
+#else
         public static UserId New() => new(Guid.NewGuid());
+#endif
     }
 }
