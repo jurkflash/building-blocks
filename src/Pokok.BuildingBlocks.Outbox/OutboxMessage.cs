@@ -12,7 +12,11 @@ namespace Pokok.BuildingBlocks.Outbox
         /// <summary>
         /// Gets the unique identifier for the outbox message.
         /// </summary>
+#if NET9_0_OR_GREATER
+        public Guid Id { get; private set; } = Guid.CreateVersion7();
+#else
         public Guid Id { get; private set; } = Guid.NewGuid();
+#endif
 
         /// <summary>
         /// When the event was originally raised by the domain

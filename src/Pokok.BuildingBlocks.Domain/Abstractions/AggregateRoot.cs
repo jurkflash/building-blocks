@@ -10,7 +10,7 @@ namespace Pokok.BuildingBlocks.Domain.Abstractions
     /// <typeparam name="TId">The type of the aggregate root's identifier.</typeparam>
     public abstract class AggregateRoot<TId> : Entity<TId>, IAggregateRoot
     {
-        private readonly List<IDomainEvent> _domainEvents = new();
+        private readonly List<IDomainEvent> _domainEvents = [];
 
         /// <summary>
         /// Gets the collection of domain events raised by this aggregate.

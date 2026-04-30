@@ -46,7 +46,7 @@ namespace Pokok.BuildingBlocks.Outbox
         /// <inheritdoc />
         public async Task MarkAsProcessedAsync(Guid id, CancellationToken cancellationToken = default)
         {
-            var message = await _dbContext.OutboxMessages.FindAsync(new object[] { id }, cancellationToken);
+            var message = await _dbContext.OutboxMessages.FindAsync([id], cancellationToken);
             if (message is not null)
             {
                 message.MarkAsProcessed();
@@ -61,7 +61,7 @@ namespace Pokok.BuildingBlocks.Outbox
         /// <inheritdoc />
         public async Task MarkAsFailedAsync(Guid id, string error, CancellationToken cancellationToken = default)
         {
-            var message = await _dbContext.OutboxMessages.FindAsync(new object[] { id }, cancellationToken);
+            var message = await _dbContext.OutboxMessages.FindAsync([id], cancellationToken);
             if (message is not null)
             {
                 message.MarkAsFailed(error);

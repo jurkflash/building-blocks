@@ -11,7 +11,11 @@ namespace Pokok.BuildingBlocks.Persistence.Entities
         /// <summary>
         /// Gets the unique identifier for the entity.
         /// </summary>
+#if NET9_0_OR_GREATER
+        public Guid Id { get; protected set; } = Guid.CreateVersion7();
+#else
         public Guid Id { get; protected set; } = Guid.NewGuid();
+#endif
 
         /// <summary>
         /// Gets or sets the UTC timestamp when the entity was created.

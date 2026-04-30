@@ -55,7 +55,7 @@ namespace Pokok.BuildingBlocks.Cqrs.Events
                     {
                         _logger.LogDebug("Invoking handler {HandlerType} for event {EventType}", handler.GetType().FullName, eventType.Name);
 
-                        var task = (Task?)handleMethod.Invoke(handler, new object[] { domainEvent, cancellationToken });
+                        var task = (Task?)handleMethod.Invoke(handler, [domainEvent, cancellationToken]);
                         if (task != null)
                             await task.ConfigureAwait(false);
                     }
