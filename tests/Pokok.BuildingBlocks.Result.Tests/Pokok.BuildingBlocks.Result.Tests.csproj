@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>Pokok.BuildingBlocks.Result.Tests</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Pokok.BuildingBlocks.Result\Pokok.BuildingBlocks.Result.csproj" />
+  </ItemGroup>
+
+</Project>
